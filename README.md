@@ -1,3 +1,4 @@
 # first
 
-something about myself
+BMSTU tasks
+
