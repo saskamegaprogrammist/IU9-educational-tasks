@@ -1,0 +1,187 @@
+USE master;
+GO
+
+IF DB_ID('SecondDatabaseAlex') IS NOT NULL
+DROP DATABASE SecondDatabaseAlex;
+
+CREATE DATABASE SecondDatabaseAlex
+ON PRIMARY
+( NAME = SecondDatabaseAlex_dat,
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL11.SQLEXPRESS\MSSQL\DATA\SecondDatabaseAlex_dat.mdf',
+    SIZE = 10,
+    MAXSIZE = 50,
+    FILEGROWTH = 5 )
+LOG ON
+( NAME = SecondDatabaseAlex_log,
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL11.SQLEXPRESS\MSSQL\DATA\SecondDatabaseAlex_log.ldf',
+    SIZE = 5MB,
+    MAXSIZE = 25MB,
+    FILEGROWTH = 5MB );
+GO
+	
+USE SecondDatabaseAlex;
+GO 
+
+CREATE TABLE USERTable(
+	USERID INT PRIMARY KEY IDENTITY (1, 1),
+	UserNick VARCHAR(100) NOT NULL,
+	UserAge INT 
+)ON [PRIMARY];
+GO
+
+
+CREATE TABLE OldUsersTable(
+	USERID INT PRIMARY KEY IDENTITY (1, 1),
+	UserNick VARCHAR(100) NOT NULL, 
+)ON [PRIMARY];
+GO
+
+INSERT INTO USERTable
+VALUES ('alex', 20);
+GO
+
+CREATE TRIGGER trig ON USERTable AFTER INSERT   
+AS  
+BEGIN
+IF (SELECT UserAge from inserted) > 70
+INSERT INTO OldUsersTable (UserNick) 
+SELECT UserNick
+From inserted
+END;
+GO  
+
+INSERT INTO USERTable
+VALUES ('sasha', 71);
+GO
+
+SELECT @@IDENTITY;  --by trigger was added new row
+
+SELECT SCOPE_IDENTITY(); --by inserting was added new row
+
+SELECT IDENT_CURRENT('OldUsersTable');  
+
+SELECT IDENT_CURRENT('USERTable'); 
+
+ALTER TABLE USERTable 
+ADD
+	DateOfBirth date CHECK (DateOfBirth <= '2000-01-01' ),
+	TimesVisited INT DEFAULT (1),
+	TimeSpent float DEFAULT 0;
+GO
+
+INSERT INTO USERTable (UserNick, UserAge, DateOfBirth)
+VALUES ('misha', 1, '1999-01-02');
+INSERT INTO	 USERTable (UserNick, UserAge, DateOfBirth, TimesVisited, TimeSpent)
+VALUES ('dasha', 17, '1999-01-02', 14, 89);
+GO
+
+ALTER TABLE USERTable
+ADD
+	AvgTime AS (CAST(TimeSpent /TimesVisited AS int)) PERSISTED;
+GO
+
+INSERT INTO USERTable (UserNick, UserAge, DateOfBirth)
+VALUES ('zhenya', 12, '1998-01-02');
+INSERT INTO	 USERTable (UserNick, UserAge, DateOfBirth, TimesVisited, TimeSpent)
+VALUES ('vasya', 97, '1998-01-02', 12, 199);
+GO
+
+SELECT SUM(TimeSpent) from USERTable as sumtime;
+
+
+SELECT * from USERTable;
+
+CREATE TABLE COMPOSITION (
+	CompositionID UNIQUEIDENTIFIER DEFAULT NEWID(),
+	FullTitle VARCHAR(100) NOT NULL, 
+	CONSTRAINT CompositionIdConstr PRIMARY KEY (CompositionID)
+	--USERID INT FOREIGN KEY REFERENCES USERTable (USERID),
+)ON [PRIMARY];
+GO
+
+
+INSERT INTO	 COMPOSITION  (FullTitle) VALUES ('Libertango');
+INSERT INTO	 COMPOSITION  (FullTitle) VALUES ('FlowerWaltz');
+GO
+
+SELECT * from COMPOSITION;
+
+CREATE TABLE GRADES (
+	TaskID INT PRIMARY KEY,
+	Grade INT NOT NULL, 
+)ON [PRIMARY];
+GO
+
+CREATE SEQUENCE CountBy1
+START WITH 1
+INCREMENT BY 1;
+GO
+
+INSERT INTO GRADES VALUES (NEXT VALUE FOR CountBy1, 5), (NEXT VALUE FOR CountBy1, 4);
+
+SELECT * from GRADES;
+
+CREATE TABLE GROUPS (
+	GROUPID INT PRIMARY KEY IDENTITY(1,1),
+	GroupName VARCHAR(100) NOT NULL, 
+	GroupLeader VARCHAR(100) NOT NULL,
+)ON [PRIMARY];
+GO
+
+CREATE TABLE STUDENTS (
+	StudentID INT PRIMARY KEY IDENTITY(1,1),
+	FullName VARCHAR(100) NOT NULL, 
+	GROUPID INT ,
+	CONSTRAINT FK_GroupId FOREIGN KEY (GROUPID) REFERENCES GROUPS (GROUPID) ON DELETE CASCADE,
+)ON [PRIMARY];
+GO
+
+INSERT INTO GROUPS VALUES ('iu9-51', 'nika'), ('iu9-52', 'janush'), ('iu9-53', 'dima');
+GO
+
+SELECT * from GROUPS;
+
+INSERT INTO STUDENTS VALUES ('sasha', (SELECT GROUPID from GROUPS WHERE (GroupName = 'iu9-52'))), 
+							('alena', (SELECT GROUPID from GROUPS WHERE (GroupName = 'iu9-51'))),
+							('nastya', (SELECT GROUPID from GROUPS WHERE (GroupName = 'iu9-53')));
+GO
+
+
+SELECT * from STUDENTS;
+
+ALTER TABLE STUDENTS
+DROP CONSTRAINT FK_GroupId;  
+
+ALTER TABLE STUDENTS
+ADD CONSTRAINT Def_GroupId
+DEFAULT 1 FOR GROUPID;
+
+ALTER TABLE STUDENTS
+ADD CONSTRAINT FK_GroupId 
+FOREIGN KEY (GROUPID) REFERENCES GROUPS (GROUPID) ON DELETE SET DEFAULT;
+GO
+
+DELETE from GROUPS
+WHERE (GroupName = 'iu9-53');
+
+SELECT * from STUDENTS;
+
+
+
+DELETE from GROUPS
+WHERE (GroupName = 'iu9-52');
+
+SELECT * from STUDENTS;
+
+ALTER TABLE STUDENTS
+DROP CONSTRAINT FK_GroupId;  
+
+ALTER TABLE STUDENTS
+ADD CONSTRAINT FK_GroupId
+FOREIGN KEY (GROUPID) REFERENCES GROUPS (GROUPID) ON DELETE SET NULL;
+GO
+
+DELETE from GROUPS
+WHERE (GroupName = 'iu9-51');
+
+SELECT * from STUDENTS;
