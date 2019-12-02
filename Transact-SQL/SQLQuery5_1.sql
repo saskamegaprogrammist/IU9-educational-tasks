@@ -198,8 +198,18 @@ BEGIN
                 GroupName
             FROM
                 Lab5.studentsGroup
-        )) > 0
-		THROW 51000, 'Cannot update view student with not existing group', 1; 
+        )) > 0 
+		OR
+		(SELECT COUNT(*)
+		FROM inserted i
+		WHERE
+        i.FullName  NOT IN (
+            SELECT 
+                FullName
+            FROM
+                Lab5.studentsGroup
+        )) > 0 
+		THROW 51000, 'Cannot update view student with not existing group or name', 1; 
 	ELSE 
 		UPDATE Lab5.studentsGroup
 		SET Lab5.studentsGroup.GroupName = i.GroupName,
@@ -213,8 +223,8 @@ GO
 
 
 UPDATE Lab5.studentsGroup
-SET GroupName = 'iu9-51'
-WHERE Lab5.studentsGroup.Age = 20
+SET FullName = 'i'
+WHERE Lab5.studentsGroup.FullName = 'alena'
 GO	
 
 SELECT * FROM Lab5.studentsGroup
