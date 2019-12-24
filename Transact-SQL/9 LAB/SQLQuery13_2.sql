@@ -1,0 +1,64 @@
+USE master;
+GO
+
+IF DB_ID('DatabaseAlex13_2') IS NOT NULL
+DROP DATABASE DatabaseAlex13_2;
+
+CREATE DATABASE DatabaseAlex13_2
+ON PRIMARY
+( NAME = DatabaseAlex13_2_dat,
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL11.SQLEXPRESS\MSSQL\DATA\DatabaseAlex13_2_dat.mdf',
+    SIZE = 10,
+    MAXSIZE = 50,
+    FILEGROWTH = 5 )
+LOG ON
+( NAME = DatabaseAlex13_2_log,
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL11.SQLEXPRESS\MSSQL\DATA\DatabaseAlex13_2_dat_log.ldf',
+    SIZE = 5MB,
+    MAXSIZE = 25MB,
+    FILEGROWTH = 5MB );
+GO
+	
+USE DatabaseAlex13_2;
+GO 
+
+SET ANSI_PADDING ON;
+
+
+CREATE TABLE STUDENTS_Moscow (
+	StudentID INT ,
+	FullName VARCHAR(100) NOT NULL, 
+	Age INT NOT NULL,
+	PlaceOfBirth VARCHAR(100) NOT NULL CHECK (PlaceOfBirth = 'Moscow'),
+	GROUPID INT ,
+	CONSTRAINT id_birth PRIMARY KEY (StudentID, PlaceOfBirth)
+)ON [PRIMARY];
+GO
+
+CREATE VIEW STUDENTS AS 
+	SELECT * FROM DatabaseAlex13_1..STUDENTS_Regions
+	UNION ALL
+	SELECT * FROM DatabaseAlex13_2..STUDENTS_Moscow
+GO
+
+	TRUNCATE TABLE STUDENTS_Moscow;
+
+SELECT * FROM STUDENTS_Moscow;
+
+CREATE TABLE STUDENTS_Moscow_1 (
+	StudentID INT ,
+	FullName VARCHAR(100) NOT NULL, 
+	Age INT NOT NULL,
+	PlaceOfBirth VARCHAR(100) NOT NULL CHECK (PlaceOfBirth = 'Moscow'),
+	GROUPID INT ,
+	CONSTRAINT birth PRIMARY KEY (PlaceOfBirth)
+)ON [PRIMARY];
+GO
+
+CREATE VIEW STUDENTS_1 AS 
+	SELECT * FROM DatabaseAlex13_1..STUDENTS_Regions_1
+	UNION ALL
+	SELECT * FROM DatabaseAlex13_2..STUDENTS_Moscow_1
+GO
+
+SELECT * FROM STUDENTS_Moscow;

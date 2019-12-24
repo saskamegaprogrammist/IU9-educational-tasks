@@ -1,0 +1,70 @@
+USE DatabaseAlex13_1;
+GO 
+
+CREATE TABLE STUDENTS_15 (
+	StudentID INT PRIMARY KEY IDENTITY(1,1),
+	FullName VARCHAR(100) NOT NULL, 
+	Age INT NOT NULL,
+	PlaceOfBirth VARCHAR(100) NOT NULL,  
+	GROUPID INT ,
+)ON [PRIMARY];
+GO
+
+SET IDENTITY_INSERT STUDENTS_15 ON;
+
+
+DROP TRIGGER Students_FK_Insert ;
+
+CREATE TRIGGER Students_FK_Insert ON STUDENTS_15
+INSTEAD OF INSERT 
+AS 
+BEGIN
+	IF 	(SELECT COUNT(DISTINCT sf.GROUPID) FROM DatabaseAlex13_2.dbo.GROUPS_15 sf
+			JOIN inserted i ON sf.GROUPID = i.GROUPID
+			) <> (SELECT COUNT (DISTINCT GROUPID) FROM inserted)
+			THROW 51000, 'Group does not exist', 1;
+	ELSE 
+	INSERT INTO STUDENTS_15 (StudentID, FullName, Age, PlaceOFBirth, GROUPID)
+		SELECT
+				StudentID, FullName, Age, PlaceOFBirth, GROUPID
+			FROM
+				inserted 
+END;
+GO
+
+
+DROP TRIGGER Students_FK_UPDATE ;
+		
+CREATE TRIGGER Students_FK_UPDATE ON STUDENTS_15
+INSTEAD OF UPDATE
+AS 
+BEGIN
+	IF 	(SELECT COUNT(DISTINCT sf.GROUPID) FROM DatabaseAlex13_2.dbo.GROUPS_15 sf
+			INNER JOIN inserted i ON sf.GROUPID = i.GROUPID
+			) <> (SELECT COUNT (DISTINCT GROUPID) FROM inserted)
+			THROW 51000, 'Group does not exist', 1;
+	ELSE 
+		IF UPDATE(StudentID) OR UPDATE(FullName)
+		THROW 51000, 'Can not update this fields', 1;  
+		ELSE
+		UPDATE STUDENTS_15
+		SET STUDENTS_15.GROUPID = COALESCE(i.GROUPID, STUDENTS_15.GROUPID),
+				STUDENTS_15.Age = COALESCE(i.Age, STUDENTS_15.Age),
+				STUDENTS_15.PlaceOfBirth = COALESCE(i.PlaceOfBirth, STUDENTS_15.PlaceOfBirth)
+		FROM STUDENTS_15
+		JOIN inserted as i
+		ON STUDENTS_15.StudentID = i.StudentID
+END;
+GO
+
+INSERT INTO STUDENTS_15 (StudentID, FullName,Age, PlaceOfBirth, GROUPID) VALUES
+	(1,'alex', 21, 'moscow', 53), (2,'alexx', 22, 'moscow', 53)
+
+SELECT * FROM STUDENTS_15;
+GO
+
+UPDATE STUDENTS_15
+SET GROUPID = 56
+WHERE FullName = 'alex'
+
+
