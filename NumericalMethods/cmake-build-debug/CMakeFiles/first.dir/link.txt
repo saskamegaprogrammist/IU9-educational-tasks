@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/first.dir/main_error.cpp.o CMakeFiles/first.dir/interpolation.cpp.o  -o first 
