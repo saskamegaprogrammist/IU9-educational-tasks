@@ -150,33 +150,6 @@ interpolation.cpp.s:
 	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/interpolation.cpp.s
 .PHONY : interpolation.cpp.s
 
-main_error.o: main_error.cpp.o
-
-.PHONY : main_error.o
-
-# target to build an object file
-main_error.cpp.o:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/main_error.cpp.o
-.PHONY : main_error.cpp.o
-
-main_error.i: main_error.cpp.i
-
-.PHONY : main_error.i
-
-# target to preprocess a source file
-main_error.cpp.i:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/main_error.cpp.i
-.PHONY : main_error.cpp.i
-
-main_error.s: main_error.cpp.s
-
-.PHONY : main_error.s
-
-# target to generate assembly for a file
-main_error.cpp.s:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/main_error.cpp.s
-.PHONY : main_error.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,9 +162,6 @@ help:
 	@echo "... interpolation.o"
 	@echo "... interpolation.i"
 	@echo "... interpolation.s"
-	@echo "... main_error.o"
-	@echo "... main_error.i"
-	@echo "... main_error.s"
 .PHONY : help
 
 

@@ -3,4 +3,4 @@ project(first)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(first main_error.cpp interpolation.cpp)
+add_executable(first interpolation.cpp)

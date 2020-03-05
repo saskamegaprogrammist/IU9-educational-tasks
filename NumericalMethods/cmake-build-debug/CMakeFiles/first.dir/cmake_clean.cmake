@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/first.dir/interpolation.cpp.o"
-  "CMakeFiles/first.dir/main_error.cpp.o"
   "first"
   "first.pdb"
 )

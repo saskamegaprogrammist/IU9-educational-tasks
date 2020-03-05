@@ -87,9 +87,6 @@
 		<Unit filename="/home/alexis/IU9-educational-tasks/NumericalMethods/interpolation.cpp">
 			<Option target="first"/>
 		</Unit>
-		<Unit filename="/home/alexis/IU9-educational-tasks/NumericalMethods/main_error.cpp">
-			<Option target="first"/>
-		</Unit>
 		<Unit filename="/home/alexis/IU9-educational-tasks/NumericalMethods/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
