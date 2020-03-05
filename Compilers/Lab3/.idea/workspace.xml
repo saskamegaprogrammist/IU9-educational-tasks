@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f2cf458-8822-4054-9468-d637d22ce267" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="6f2cf458-8822-4054-9468-d637d22ce267" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,26 +17,26 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="ProjectId" id="1YXbzh2HAd2gDQgu1snbCQbXZSu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.LexerRegexpLab">
     <configuration name="IdentVsNumber" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -70,10 +72,33 @@
       <updated>1583092150882</updated>
       <workItem from="1583092160499" duration="22589000" />
       <workItem from="1583312563593" duration="2593000" />
+      <workItem from="1583419883506" duration="266000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1354" height="260" key="GridCell.Tab.0.bottom" timestamp="1583420153330">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1354" height="260" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153330" />
+    <state width="1354" height="260" key="GridCell.Tab.0.center" timestamp="1583420153329">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1354" height="260" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153329" />
+    <state width="1354" height="260" key="GridCell.Tab.0.left" timestamp="1583420153329">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1354" height="260" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153329" />
+    <state width="1354" height="260" key="GridCell.Tab.0.right" timestamp="1583420153330">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1354" height="260" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153330" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1583419919877">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1583419919877" />
   </component>
 </project>

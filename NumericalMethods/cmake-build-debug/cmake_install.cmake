@@ -1,4 +1,4 @@
-# Install script for directory: /home/alexis/CLionProjects/first
+# Install script for directory: /home/alexis/IU9-educational-tasks/NumericalMethods
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/alexis/CLionProjects/first/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

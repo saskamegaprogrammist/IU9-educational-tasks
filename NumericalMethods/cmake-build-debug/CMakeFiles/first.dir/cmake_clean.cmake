@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/first.dir/main_error.cpp.o"
   "CMakeFiles/first.dir/interpolation.cpp.o"
-  "first.pdb"
+  "CMakeFiles/first.dir/main_error.cpp.o"
   "first"
+  "first.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
