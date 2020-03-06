@@ -12,9 +12,6 @@ class Vector(inCoords: Int*) {
           if (vector.dimension != dimension) {
             throw new Exception("wrong dimension")
           }
-          if (vector.dimension != dimension) {
-            println("wrong dimension")
-          }
           new Vector(coords.zip(vector.coords).map(a => a._1+ a._2) :_*)
 
         }
@@ -28,7 +25,16 @@ class Vector(inCoords: Int*) {
   def unary_- = this * (-1)
   def - (vector: Vector) = this + (-vector)
   def ** (vector: Vector) = {
-    coords.zip(vector.coords).map(a => a._1*a._2).sum
+    try {
+      if (vector.dimension != dimension) {
+        throw new Exception("wrong dimension")
+      }
+      coords.zip(vector.coords).map(a => a._1*a._2).sum
+    }
+    catch {
+      case e: Exception => println("exception caught: " + e)
+        -1
+    }
   }
 
   override def toString: String = coords.mkString(",")
