@@ -57,27 +57,27 @@ include CMakeFiles/first.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/first.dir/flags.make
 
-CMakeFiles/first.dir/interpolation.cpp.o: CMakeFiles/first.dir/flags.make
-CMakeFiles/first.dir/interpolation.cpp.o: ../interpolation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/first.dir/interpolation.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/first.dir/interpolation.cpp.o -c /home/alexis/IU9-educational-tasks/NumericalMethods/interpolation.cpp
+CMakeFiles/first.dir/inaccuracy.cpp.o: CMakeFiles/first.dir/flags.make
+CMakeFiles/first.dir/inaccuracy.cpp.o: ../inaccuracy.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/first.dir/inaccuracy.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/first.dir/inaccuracy.cpp.o -c /home/alexis/IU9-educational-tasks/NumericalMethods/inaccuracy.cpp
 
-CMakeFiles/first.dir/interpolation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/first.dir/interpolation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexis/IU9-educational-tasks/NumericalMethods/interpolation.cpp > CMakeFiles/first.dir/interpolation.cpp.i
+CMakeFiles/first.dir/inaccuracy.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/first.dir/inaccuracy.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexis/IU9-educational-tasks/NumericalMethods/inaccuracy.cpp > CMakeFiles/first.dir/inaccuracy.cpp.i
 
-CMakeFiles/first.dir/interpolation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/first.dir/interpolation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexis/IU9-educational-tasks/NumericalMethods/interpolation.cpp -o CMakeFiles/first.dir/interpolation.cpp.s
+CMakeFiles/first.dir/inaccuracy.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/first.dir/inaccuracy.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexis/IU9-educational-tasks/NumericalMethods/inaccuracy.cpp -o CMakeFiles/first.dir/inaccuracy.cpp.s
 
 # Object files for target first
 first_OBJECTS = \
-"CMakeFiles/first.dir/interpolation.cpp.o"
+"CMakeFiles/first.dir/inaccuracy.cpp.o"
 
 # External object files for target first
 first_EXTERNAL_OBJECTS =
 
-first: CMakeFiles/first.dir/interpolation.cpp.o
+first: CMakeFiles/first.dir/inaccuracy.cpp.o
 first: CMakeFiles/first.dir/build.make
 first: CMakeFiles/first.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable first"

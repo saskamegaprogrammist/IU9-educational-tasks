@@ -51,7 +51,7 @@ void calculateLs(float* ys, float* ls, float h, int size) {
 
 void calculateYs(float* xs, float* ys, int sizeKoeff) {
     for (int i=0; i < sizeKoeff; i++) {
-        ys[i] = sin(xs[i]);
+        ys[i] = exp(xs[i]);
     }
 }
 
@@ -98,7 +98,7 @@ int main() {
     cout << "Enter b" << endl;
     cin >> xs[sizeKoeff-1];
 
-    h=(xs[sizeKoeff-1]-xs[0])/n;
+    h=(xs[sizeKoeff-1]-xs[0])/(float)n;
 
     calculateXs(xs, n, h);
     calculateYs(xs, ys, sizeKoeff);

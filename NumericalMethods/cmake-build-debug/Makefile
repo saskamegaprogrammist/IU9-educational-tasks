@@ -123,32 +123,32 @@ first/fast:
 	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/build
 .PHONY : first/fast
 
-interpolation.o: interpolation.cpp.o
+inaccuracy.o: inaccuracy.cpp.o
 
-.PHONY : interpolation.o
+.PHONY : inaccuracy.o
 
 # target to build an object file
-interpolation.cpp.o:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/interpolation.cpp.o
-.PHONY : interpolation.cpp.o
+inaccuracy.cpp.o:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/inaccuracy.cpp.o
+.PHONY : inaccuracy.cpp.o
 
-interpolation.i: interpolation.cpp.i
+inaccuracy.i: inaccuracy.cpp.i
 
-.PHONY : interpolation.i
+.PHONY : inaccuracy.i
 
 # target to preprocess a source file
-interpolation.cpp.i:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/interpolation.cpp.i
-.PHONY : interpolation.cpp.i
+inaccuracy.cpp.i:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/inaccuracy.cpp.i
+.PHONY : inaccuracy.cpp.i
 
-interpolation.s: interpolation.cpp.s
+inaccuracy.s: inaccuracy.cpp.s
 
-.PHONY : interpolation.s
+.PHONY : inaccuracy.s
 
 # target to generate assembly for a file
-interpolation.cpp.s:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/interpolation.cpp.s
-.PHONY : interpolation.cpp.s
+inaccuracy.cpp.s:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/inaccuracy.cpp.s
+.PHONY : inaccuracy.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... first"
 	@echo "... edit_cache"
-	@echo "... interpolation.o"
-	@echo "... interpolation.i"
-	@echo "... interpolation.s"
+	@echo "... inaccuracy.o"
+	@echo "... inaccuracy.i"
+	@echo "... inaccuracy.s"
 .PHONY : help
 
 

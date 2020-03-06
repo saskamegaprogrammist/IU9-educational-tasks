@@ -84,7 +84,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/alexis/IU9-educational-tasks/NumericalMethods/interpolation.cpp">
+		<Unit filename="/home/alexis/IU9-educational-tasks/NumericalMethods/inaccuracy.cpp">
 			<Option target="first"/>
 		</Unit>
 		<Unit filename="/home/alexis/IU9-educational-tasks/NumericalMethods/CMakeLists.txt">

@@ -6,10 +6,8 @@
 
 #IncludeRegexTransform: 
 
-/home/alexis/IU9-educational-tasks/NumericalMethods/interpolation.cpp
+/home/alexis/IU9-educational-tasks/NumericalMethods/inaccuracy.cpp
 iostream
--
-limits
 -
 cmath
 -

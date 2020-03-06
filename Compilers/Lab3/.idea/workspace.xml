@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f2cf458-8822-4054-9468-d637d22ce267" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +19,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1YXbzh2HAd2gDQgu1snbCQbXZSu" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -36,7 +38,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager" selected="Application.LexerRegexpLab">
     <configuration name="IdentVsNumber" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -73,6 +75,8 @@
       <workItem from="1583092160499" duration="22589000" />
       <workItem from="1583312563593" duration="2593000" />
       <workItem from="1583419883506" duration="266000" />
+      <workItem from="1583443144183" duration="417000" />
+      <workItem from="1583443610257" duration="329000" />
     </task>
     <servers />
   </component>
@@ -96,9 +100,17 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="1354" height="260" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153330" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1583419919877">
+    <state x="482" y="187" key="SettingsEditor" timestamp="1583443562655">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1583419919877" />
+    <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583443562655" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1583443646891">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1583443646891" />
+    <state x="302" y="153" width="1372" height="799" key="new project wizard" timestamp="1583443937520">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="302" y="153" width="1372" height="799" key="new project wizard/67.27.1853.1053@67.27.1853.1053" timestamp="1583443937520" />
   </component>
 </project>
