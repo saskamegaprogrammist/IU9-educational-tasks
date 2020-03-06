@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE test [ <!ENTITY xxe SYSTEM "php://filter/convert.base64-encode/resource=/etc/passwd"> ]>
+<rss version="2.0">
+<channel>
+<title>&xxe;</title>
+<description>
+RSS is a fascinating technology. The uses for RSS are expanding daily. Take a closer look at how various industries are using the benefits of RSS in their businesses.
+</description>
+<link>http://www.feedforall.com/industry-solutions.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<copyright>Copyright 2004 NotePage, Inc.</copyright>
+<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+<language>en-us</language>
+<lastBuildDate>Tue, 19 Oct 2004 13:39:14 -0400</lastBuildDate>
+<managingEditor>marketing@feedforall.com</managingEditor>
+<pubDate>Tue, 19 Oct 2004 13:38:55 -0400</pubDate>
+<webMaster>webmaster@feedforall.com</webMaster>
+<generator>FeedForAll Beta1 (0.0.1.8)</generator>
+<image>
+<url>http://www.feedforall.com/ffalogo48x48.gif</url>
+<title>FeedForAll Sample Feed</title>
+<link>http://www.feedforall.com/industry-solutions.htm</link>
+<description>FeedForAll Sample Feed</description>
+<width>48</width>
+<height>48</height>
+</image>
+<item>
+<title>RSS Solutions for Restaurants</title>
+<description>
+<b>FeedForAll </b>helps Restaurant's communicate with customers. Let your customers know the latest specials or events.<br> <br> RSS feed uses include:<br> <i><font color="#FF0000">Daily Specials <br> Entertainment <br> Calendar of Events </i></font>
+</description>
+<link>http://www.feedforall.com/restaurant.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:09:11 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Schools and Colleges</title>
+<description>
+FeedForAll helps Educational Institutions communicate with students about school wide activities, events, and schedules.<br> <br> RSS feed uses include:<br> <i><font color="#0000FF">Homework Assignments <br> School Cancellations <br> Calendar of Events <br> Sports Scores <br> Clubs/Organization Meetings <br> Lunches Menus </i></font>
+</description>
+<link>http://www.feedforall.com/schools.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:09:09 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Computer Service Companies</title>
+<description>
+FeedForAll helps Computer Service Companies communicate with clients about cyber security and related issues. <br> <br> Uses include:<br> <i><font color="#0000FF">Cyber Security Alerts <br> Specials<br> Job Postings </i></font>
+</description>
+<link>http://www.feedforall.com/computer-service.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:09:07 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Governments</title>
+<description>
+FeedForAll helps Governments communicate with the general public about positions on various issues, and keep the community aware of changes in important legislative issues. <b><i><br> </b></i><br> RSS uses Include:<br> <i><font color="#00FF00">Legislative Calendar<br> Votes<br> Bulletins</i></font>
+</description>
+<link>http://www.feedforall.com/government.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:09:05 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Politicians</title>
+<description>
+FeedForAll helps Politicians communicate with the general public about positions on various issues, and keep the community notified of their schedule. <br> <br> Uses Include:<br> <i><font color="#FF0000">Blogs<br> Speaking Engagements <br> Statements<br> </i></font>
+</description>
+<link>http://www.feedforall.com/politics.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:09:03 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Meteorologists</title>
+<description>
+FeedForAll helps Meteorologists communicate with the general public about storm warnings and weather alerts, in specific regions. Using RSS meteorologists are able to quickly disseminate urgent and life threatening weather warnings. <br> <br> Uses Include:<br> <i><font color="#0000FF">Weather Alerts<br> Plotting Storms<br> School Cancellations </i></font>
+</description>
+<link>http://www.feedforall.com/weather.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:09:01 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Realtors & Real Estate Firms</title>
+<description>
+FeedForAll helps Realtors and Real Estate companies communicate with clients informing them of newly available properties, and open house announcements. RSS helps to reach a targeted audience and spread the word in an inexpensive, professional manner. <font color="#0000FF"><br> </font><br> Feeds can be used for:<br> <i><font color="#FF0000">Open House Dates<br> New Properties For Sale<br> Mortgage Rates</i></font>
+</description>
+<link>http://www.feedforall.com/real-estate.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:08:59 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Banks / Mortgage Companies</title>
+<description>
+FeedForAll helps <b>Banks, Credit Unions and Mortgage companies</b> communicate with the general public about rate changes in a prompt and professional manner. <br> <br> Uses include:<br> <i><font color="#0000FF">Mortgage Rates<br> Foreign Exchange Rates <br> Bank Rates<br> Specials</i></font>
+</description>
+<link>http://www.feedforall.com/banks.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:08:57 -0400</pubDate>
+</item>
+<item>
+<title>RSS Solutions for Law Enforcement</title>
+<description>
+<b>FeedForAll</b> helps Law Enforcement Professionals communicate with the general public and other agencies in a prompt and efficient manner. Using RSS police are able to quickly disseminate urgent and life threatening information. <br> <br> Uses include:<br> <i><font color="#0000FF">Amber Alerts<br> Sex Offender Community Notification <br> Weather Alerts <br> Scheduling <br> Security Alerts <br> Police Report <br> Meetings</i></font>
+</description>
+<link>http://www.feedforall.com/law-enforcement.htm</link>
+<category domain="www.dmoz.com">
+Computers/Software/Internet/Site Management/Content Management
+</category>
+<comments>http://www.feedforall.com/forum</comments>
+<pubDate>Tue, 19 Oct 2004 11:08:56 -0400</pubDate>
+</item>
+</channel>
+</rss>
