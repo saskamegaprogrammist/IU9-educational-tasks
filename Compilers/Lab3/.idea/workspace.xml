@@ -9,6 +9,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -77,6 +80,12 @@
       <workItem from="1583419883506" duration="266000" />
       <workItem from="1583443144183" duration="417000" />
       <workItem from="1583443610257" duration="329000" />
+      <workItem from="1583917804220" duration="1631000" />
+      <workItem from="1583922942885" duration="992000" />
+      <workItem from="1585124966027" duration="3998000" />
+      <workItem from="1585138234935" duration="166000" />
+      <workItem from="1585138458469" duration="2906000" />
+      <workItem from="1585174605378" duration="1458000" />
     </task>
     <servers />
   </component>
@@ -84,33 +93,33 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1354" height="260" key="GridCell.Tab.0.bottom" timestamp="1583420153330">
+    <state width="1807" height="281" key="GridCell.Tab.0.bottom" timestamp="1583921865445">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153330" />
-    <state width="1354" height="260" key="GridCell.Tab.0.center" timestamp="1583420153329">
+    <state width="1807" height="281" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1583921865445" />
+    <state width="1807" height="281" key="GridCell.Tab.0.center" timestamp="1583921865444">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153329" />
-    <state width="1354" height="260" key="GridCell.Tab.0.left" timestamp="1583420153329">
+    <state width="1807" height="281" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1583921865444" />
+    <state width="1807" height="281" key="GridCell.Tab.0.left" timestamp="1583921865443">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153329" />
-    <state width="1354" height="260" key="GridCell.Tab.0.right" timestamp="1583420153330">
+    <state width="1807" height="281" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1583921865443" />
+    <state width="1807" height="281" key="GridCell.Tab.0.right" timestamp="1583921865444">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583420153330" />
+    <state width="1807" height="281" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583921865444" />
     <state x="482" y="187" key="SettingsEditor" timestamp="1583443562655">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583443562655" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1583443646891">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1585174720794">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1583443646891" />
-    <state x="302" y="153" width="1372" height="799" key="new project wizard" timestamp="1583443937520">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1585174720794" />
+    <state x="302" y="153" width="1372" height="799" key="new project wizard" timestamp="1583922978250">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="302" y="153" width="1372" height="799" key="new project wizard/67.27.1853.1053@67.27.1853.1053" timestamp="1583443937520" />
+    <state x="302" y="153" width="1372" height="799" key="new project wizard/67.27.1853.1053@67.27.1853.1053" timestamp="1583922978250" />
   </component>
 </project>
