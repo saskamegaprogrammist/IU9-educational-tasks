@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/first.dir/inaccuracy.cpp.o"
+  "CMakeFiles/first.dir/pow-pow.cpp.o"
   "first"
   "first.pdb"
 )

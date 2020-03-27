@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/first.dir/inaccuracy.cpp.o  -o first 
+/usr/bin/c++  -g   CMakeFiles/first.dir/pow-pow.cpp.o  -o first 

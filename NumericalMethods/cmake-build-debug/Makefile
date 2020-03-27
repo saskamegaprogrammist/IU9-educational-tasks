@@ -123,32 +123,32 @@ first/fast:
 	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/build
 .PHONY : first/fast
 
-inaccuracy.o: inaccuracy.cpp.o
+pow-pow.o: pow-pow.cpp.o
 
-.PHONY : inaccuracy.o
+.PHONY : pow-pow.o
 
 # target to build an object file
-inaccuracy.cpp.o:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/inaccuracy.cpp.o
-.PHONY : inaccuracy.cpp.o
+pow-pow.cpp.o:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/pow-pow.cpp.o
+.PHONY : pow-pow.cpp.o
 
-inaccuracy.i: inaccuracy.cpp.i
+pow-pow.i: pow-pow.cpp.i
 
-.PHONY : inaccuracy.i
+.PHONY : pow-pow.i
 
 # target to preprocess a source file
-inaccuracy.cpp.i:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/inaccuracy.cpp.i
-.PHONY : inaccuracy.cpp.i
+pow-pow.cpp.i:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/pow-pow.cpp.i
+.PHONY : pow-pow.cpp.i
 
-inaccuracy.s: inaccuracy.cpp.s
+pow-pow.s: pow-pow.cpp.s
 
-.PHONY : inaccuracy.s
+.PHONY : pow-pow.s
 
 # target to generate assembly for a file
-inaccuracy.cpp.s:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/inaccuracy.cpp.s
-.PHONY : inaccuracy.cpp.s
+pow-pow.cpp.s:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/pow-pow.cpp.s
+.PHONY : pow-pow.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... first"
 	@echo "... edit_cache"
-	@echo "... inaccuracy.o"
-	@echo "... inaccuracy.i"
-	@echo "... inaccuracy.s"
+	@echo "... pow-pow.o"
+	@echo "... pow-pow.i"
+	@echo "... pow-pow.s"
 .PHONY : help
 
 

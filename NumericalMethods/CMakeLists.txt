@@ -3,4 +3,4 @@ project(first)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(first inaccuracy.cpp)
+add_executable(first  pow-pow.cpp)
