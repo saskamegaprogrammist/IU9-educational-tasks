@@ -4,14 +4,20 @@ import compiler.Position;
 import compiler.Utils;
 
 public class IdentToken extends Token {
-    private String ident;
+    private String attribute;
     public IdentToken(String ident, Position start, Position end) {
         super(Utils.TOKEN_TAG.IDENT, start, end);
-        this.ident = ident;
+        this.setAttribute(ident);
+    }
+
+    @Override
+    protected void setAttribute(String token) {
+        super.setAttribute(token);
+        this.attribute = token;
     }
 
     @Override
     public String toString() {
-        return super.toString() + ": " + ident;
+        return super.toString() + ": " + attribute;
     }
 }

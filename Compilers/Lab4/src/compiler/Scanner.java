@@ -4,7 +4,6 @@ import compiler.token.HexNumberToken;
 import compiler.token.IdentToken;
 import compiler.token.NumberToken;
 import compiler.token.StringToken;
-import jdk.nashorn.internal.parser.Token;
 
 import java.util.ArrayList;
 
@@ -41,7 +40,7 @@ public class Scanner {
             }
             if (this.position.isHexNumberDelimiter()) {
                 this.position.next();
-                while (this.position.isDigit()) {
+                while (this.position.isHex()) {
                     this.position.next();
                 }
                 this.tokens.add(new HexNumberToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
@@ -50,15 +49,18 @@ public class Scanner {
             if (this.position.isStringDelimiter()) {
                 this.position.next();
                 while (!this.position.isStringDelimiter()) {
+                    if (this.position.isStringInnerQuote()) {
+                        this.position.next();
+                        this.position.next();
+                        continue;
+                    }
                     if (this.position.isStringNewLineSymbol()) {
                         this.position.next();
                         if (this.position.isNewLine()) {
                             this.position.next();
-                            continue;
-                        } else {
-                            this.messages.add(new Message("expected newline in string", true, new Position(this.position)));
-                            continue;
                         }
+                        continue;
+//                      this.messages.add(new Message("expected newline in string", true, new Position(this.position)));
                     }
                     if (this.position.isNewLine()) {
                         this.messages.add(new Message("expected end of string", true, new Position(this.position)));
@@ -67,7 +69,6 @@ public class Scanner {
                     this.position.next();
                 }
                 this.position.next();
-                System.out.println(programm.substring(start.getIndex(), this.position.getIndex()));
                 this.tokens.add(new StringToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
                 continue;
             }

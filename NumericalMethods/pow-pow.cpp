@@ -20,28 +20,42 @@ float f(float x) {
 }
 
 float cauchy(float x) {
-    return cauchy_C1* + cauchy_C2*exp(x) + cauchy_A*cos(x) + cauchy_B*sin(x);
+    return cauchy_C1*exp(2*x) + cauchy_C2*exp(x) + cauchy_A*cos(x) + cauchy_B*sin(x);
 }
 
-float calculateY0(float* xs, float* y0, float h, float n) {
+
+void calculateY0(float* xs, float* y0, float h, float n) {
     for (int i=1; i<n; i++) {
         y0[i+1] = (f(xs[i])*pow(h, 2) + (2-q*pow(h, 2))*y0[i] - (1-p*h/2)*y0[i-1]) / (1+p*h/2);
     }
 }
 
-float calculateY1(float* xs, float* y1, float h, float n) {
+void calculateY1(float* xs, float* y1, float h, float n) {
     for (int i=1; i<n; i++) {
         y1[i+1] = ((2-q*pow(h, 2))*y1[i] - (1-p*h/2)*y1[i-1]) / (1+p*h/2);
     }
 }
 
-float calculateY(float* y, float* y0, float* y1, float n, float C1) {
+void calculateY(float* y, float* y0, float* y1, float n, float C1) {
     for (int i=0; i<=n; i++) {
         y[i] = y0[i] + C1*y1[i];
     }
 }
 
+float calculateInaccuracy(float* y,  float* x, float* e, float* cauchy_v, float n) {
+    float max = 0;
+    for (int i=0; i<=n; i++) {
+        cauchy_v[i] = cauchy(x[i]);
+        e[i] = abs(y[i] - cauchy_v[i]);
+        if (e[i] > max) {
+            max = e[i];
+        };
+    }
+    return max;
+}
+
 int main() {
+    const clock_t begin_time = clock();
     float a = cauchy(0);
     float b = cauchy(1);
     float A = cauchy(a);
@@ -72,12 +86,26 @@ int main() {
     y = new float[n+1];
     calculateY(y, y0, y1, n, C1);
 
-
     cout.precision(15);
     cout.setf( std::ios::fixed, std:: ios::floatfield);
 
-    for (int i=0; i<=n; i++) {
-        cout << xs[i] << " " << y[i] << " " << cauchy(xs[i]) << " " << cauchy(xs[i]) - y[i] << endl;
-    }
 
+    std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl ;
+
+    float* e;
+    e =  new float[n+1];
+
+    float* cauchy_v;
+    cauchy_v =  new float[n+1];
+
+    float error;
+    error = calculateInaccuracy(y, xs, e, cauchy_v, n);
+
+
+
+
+    for (int i=0; i<=n; i++) {
+        cout << xs[i] << " " << y[i] << " " << cauchy_v[i] << " " << e[i] << endl;
+    }
+    cout << error << endl;
 }

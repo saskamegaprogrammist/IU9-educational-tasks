@@ -1,0 +1,5 @@
+Float FLOAT "
+ab123 123=::
+Integer int
+->
+{-sdf-}

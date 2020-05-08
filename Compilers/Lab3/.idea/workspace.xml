@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f2cf458-8822-4054-9468-d637d22ce267" name="Default Changelist" comment="" />
+    <list default="true" id="6f2cf458-8822-4054-9468-d637d22ce267" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/inaccuracy.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/inaccuracy.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/interpolation.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/interpolation.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/main_error.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/pow-pow.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/CMakeFiles/first.dir/pow-pow.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/first" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/first" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/first.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/cmake-build-debug/first.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/interpolation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/interpolation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/main_error.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/main_error.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../NumericalMethods/pow-pow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../NumericalMethods/pow-pow.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,6 +104,10 @@
       <workItem from="1585138234935" duration="166000" />
       <workItem from="1585138458469" duration="2906000" />
       <workItem from="1585174605378" duration="3310000" />
+      <workItem from="1585387896419" duration="3270000" />
+      <workItem from="1586441557646" duration="532000" />
+      <workItem from="1588767732215" duration="5316000" />
+      <workItem from="1588862961957" duration="597000" />
     </task>
     <servers />
   </component>
@@ -91,6 +115,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="776" y="251" width="424" height="603" key="FileChooserDialogImpl" timestamp="1586441820698">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="776" y="251" width="424" height="603" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1586441820698" />
     <state width="1807" height="281" key="GridCell.Tab.0.bottom" timestamp="1583921865445">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -107,17 +135,21 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="1807" height="281" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583921865444" />
+    <state x="579" y="207" width="819" height="691" key="NewModule_or_Project.wizard" timestamp="1586441841368">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="579" y="207" width="819" height="691" key="NewModule_or_Project.wizard/67.27.1853.1053@67.27.1853.1053" timestamp="1586441841368" />
     <state x="482" y="187" key="SettingsEditor" timestamp="1583443562655">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583443562655" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1585174720794">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1585387894699">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1585174720794" />
-    <state x="302" y="153" width="1372" height="799" key="new project wizard" timestamp="1583922978250">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1585387894699" />
+    <state x="302" y="153" width="1372" height="799" key="new project wizard" timestamp="1586442108776">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="302" y="153" width="1372" height="799" key="new project wizard/67.27.1853.1053@67.27.1853.1053" timestamp="1583922978250" />
+    <state x="302" y="153" width="1372" height="799" key="new project wizard/67.27.1853.1053@67.27.1853.1053" timestamp="1586442108776" />
   </component>
 </project>

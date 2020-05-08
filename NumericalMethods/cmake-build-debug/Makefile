@@ -123,32 +123,32 @@ first/fast:
 	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/build
 .PHONY : first/fast
 
-pow-pow.o: pow-pow.cpp.o
+optimization.o: optimization.cpp.o
 
-.PHONY : pow-pow.o
+.PHONY : optimization.o
 
 # target to build an object file
-pow-pow.cpp.o:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/pow-pow.cpp.o
-.PHONY : pow-pow.cpp.o
+optimization.cpp.o:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/optimization.cpp.o
+.PHONY : optimization.cpp.o
 
-pow-pow.i: pow-pow.cpp.i
+optimization.i: optimization.cpp.i
 
-.PHONY : pow-pow.i
+.PHONY : optimization.i
 
 # target to preprocess a source file
-pow-pow.cpp.i:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/pow-pow.cpp.i
-.PHONY : pow-pow.cpp.i
+optimization.cpp.i:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/optimization.cpp.i
+.PHONY : optimization.cpp.i
 
-pow-pow.s: pow-pow.cpp.s
+optimization.s: optimization.cpp.s
 
-.PHONY : pow-pow.s
+.PHONY : optimization.s
 
 # target to generate assembly for a file
-pow-pow.cpp.s:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/pow-pow.cpp.s
-.PHONY : pow-pow.cpp.s
+optimization.cpp.s:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/optimization.cpp.s
+.PHONY : optimization.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... first"
 	@echo "... edit_cache"
-	@echo "... pow-pow.o"
-	@echo "... pow-pow.i"
-	@echo "... pow-pow.s"
+	@echo "... optimization.o"
+	@echo "... optimization.i"
+	@echo "... optimization.s"
 .PHONY : help
 
 

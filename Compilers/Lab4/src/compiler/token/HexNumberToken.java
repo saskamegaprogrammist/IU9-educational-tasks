@@ -4,13 +4,20 @@ import compiler.Position;
 import compiler.Utils;
 
 public class HexNumberToken extends Token {
-    private String hexnum;
+    private String attribute;
     public HexNumberToken(String hexnum, Position start, Position end) {
         super(Utils.TOKEN_TAG.HEXNUMBER, start, end);
-        this.hexnum = hexnum;
+        this.setAttribute(hexnum);
     }
+
+    @Override
+    protected void setAttribute(String token) {
+        super.setAttribute(token);
+        this.attribute = token;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + ": " + hexnum;
+        return super.toString() + ": " + attribute;
     }
 }

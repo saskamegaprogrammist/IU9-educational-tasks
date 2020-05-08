@@ -49,22 +49,27 @@ void calculateLs(float* ys, float* ls, float h, int size) {
     }
 }
 
-void calculateYs(float* xs, float* ys, int sizeKoeff) {
+void calculateYs(float* xs, float* xs_between, float* ys, float* ys_between, int sizeKoeff) {
     for (int i=0; i < sizeKoeff; i++) {
-        ys[i] = exp(xs[i]);
+        ys[i] = sin(xs[i]);
+        if (i != sizeKoeff-1) ys_between[i] = sin(xs_between[i]);
     }
 }
 
-void calculateXs(float* xs, int n, float h) {
+void calculateXs(float* xs, float* xs_between,  int n, float h) {
     for (int i=1; i < n; i++) {
         xs[i] = xs[0] + i*h;
+        xs_between[i-1] = xs[0] + i*h - h/2;
     }
+    xs_between[n-1] = xs[0] + n*h - h/2;
 }
 
-void calculateSs(float* ss, float* xs, float* ys,  float* bs,  float* cs,  float* ds, float h, int sizeKoeff) {
+void calculateSs(float* ss, float* ss_between, float* xs, float* xs_between, float* ys,  float* bs,  float* cs,  float* ds, float h, int sizeKoeff) {
     ss[0] = ys[0];
     for (int i=1; i < sizeKoeff; i++) {
+        float x = xs_between[i-1] - xs[i-1];
         ss[i] = ys[i-1] + bs[i-1]*h + cs[i-1]*pow(h, 2) + ds[i-1]*pow(h, 3);
+        ss_between[i-1] = ys[i-1] + bs[i-1]*x + cs[i-1]*pow(x, 2) + ds[i-1]*pow(x, 3);
     }
 }
 
@@ -74,21 +79,26 @@ int main() {
 
     int sizeKoeff;
     float * xs;
+    float * xs_between;
     float * ys;
+    float * ys_between;
     float * ls;
     float * cs;
     float * ds;
     float * bs;
     float * ss;
+    float * ss_between;
 
     cout << "Enter n" << endl;
     cin >> n;
-    n*=2;
 
     sizeKoeff = n + 1;
     xs = new float[sizeKoeff];
+    xs_between = new float[n];
     ys = new float[sizeKoeff];
+    ys_between = new float[n];
     ss = new float[sizeKoeff];
+    ss_between = new float[n];
     cs = new float[sizeKoeff];
     ls = new float[n];
     bs = new float[n];
@@ -100,8 +110,8 @@ int main() {
 
     h=(xs[sizeKoeff-1]-xs[0])/(float)n;
 
-    calculateXs(xs, n, h);
-    calculateYs(xs, ys, sizeKoeff);
+    calculateXs(xs, xs_between, n, h);
+    calculateYs(xs, xs_between, ys, ys_between, sizeKoeff);
     calculateLs(ys, ls, h, n);
 
     float ** matrix;
@@ -120,11 +130,12 @@ int main() {
 
     calculateBs(bs, cs, ys, h, n);
     calculateDs(ds, cs, h, n);
-    calculateSs(ss, xs, ys, bs, cs, ds, h, sizeKoeff);
+    calculateSs(ss, ss_between, xs, xs_between, ys, bs, cs, ds, h, sizeKoeff);
     std::cout.precision(15);
     std::cout.setf( std::ios::fixed, std:: ios::floatfield);
     for (int i=0 ; i < sizeKoeff; i++) {
         cout << xs[i] << " " << ys[i] << " " << ss[i] << " " << ss[i] - ys[i] << endl;
+        if (i != sizeKoeff-1) cout << xs_between[i] << " " << ys_between[i] << " " << ss_between[i] << " " << ss_between[i] - ys_between[i] << endl;
     }
 
     return 0;

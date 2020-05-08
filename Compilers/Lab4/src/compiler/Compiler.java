@@ -1,10 +1,6 @@
 package compiler;
 
-import compiler.token.IdentToken;
-import jdk.nashorn.internal.parser.Token;
-
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Compiler {
     private Scanner scanner;

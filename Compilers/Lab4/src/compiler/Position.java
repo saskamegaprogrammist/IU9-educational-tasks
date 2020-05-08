@@ -54,6 +54,18 @@ public class Position implements Cloneable {
         return (this.index != this.fileLength && Character.isWhitespace(this.file.charAt(this.index)));
     }
 
+    public boolean isStringInnerQuote() {
+        if (this.index != this.fileLength) {
+            if (this.file.charAt(this.index) == '"') {
+                if (this.index + 1 < this.fileLength) {
+                    return (this.file.charAt(this.index + 1) == '"');
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isStringDelimiter() {
         if (this.index != this.fileLength) {
             if (this.file.charAt(this.index) == '"') {
@@ -78,8 +90,20 @@ public class Position implements Cloneable {
         return (this.index != this.fileLength && Character.isLetter(this.file.charAt(this.index)));
     }
 
+    public boolean isHexLetter() {
+        if (this.index != this.fileLength) {
+            char value = this.file.charAt(this.index);
+            return  ((value >= 'A' && value <= 'F') || (value >= 'a' && value <= 'f'));
+        }
+        return false;
+    }
+
     public boolean isLetterOrDigit() {
         return this.isDigit() || this.isLetter();
+    }
+
+    public boolean isHex() {
+        return this.isDigit() || this.isHexLetter();
     }
 
     public boolean isHexNumberDelimiter() {

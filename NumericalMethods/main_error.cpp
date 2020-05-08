@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-#include <limits>
 using namespace std;
 
 
@@ -87,12 +86,12 @@ int main() {
     for  (int i = 0; i < size; i++) {
         cin >> answer[i];
     }
-    gaussDiagonal(matrix, answer, variables, size);
-    std::cout.precision(15);
-    std::cout.setf( std::ios::fixed, std:: ios::floatfield);
-//    for (int i=0 ; i < size; i++) {
-//        cout << variables[i] << endl;
-//    }
+        gaussDiagonal(matrix, answer, variables, size);
+        std::cout.precision(15);
+        std::cout.setf( std::ios::fixed, std:: ios::floatfield);
+    for (int i=0 ; i < size; i++) {
+        cout << variables[i] << endl;
+    }
     multiplyMatrixonVector(matrix, variables, dStarred, size);
     substractVectors(answer, dStarred, nevazka, size);
     multiplyMatrixonVector(matrixInverted, nevazka, error, size);
@@ -101,6 +100,7 @@ int main() {
     for (int i=0 ; i < size; i++) {
         cout << error[i] << endl;
     }
+
     return 0;
 }
 ////
@@ -113,7 +113,6 @@ int main() {
 //-0.14545454545	0.43636363636	-0.16363636363	0.05454545454
 //0.05454545454	-0.16363636363	0.43636363636	-0.14545454545
 //-0.01818181818	0.05454545454	-0.14545454545	0.38181818181
-//
 //4 5 5 4
 
 //1.000000000000000

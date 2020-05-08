@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/alexis/IU9-educational-tasks/NumericalMethods/pow-pow.cpp
+/home/alexis/IU9-educational-tasks/NumericalMethods/optimization.cpp
 iostream
 -
 cmath
