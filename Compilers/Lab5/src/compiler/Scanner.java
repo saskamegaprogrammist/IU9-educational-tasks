@@ -33,7 +33,7 @@ public class Scanner {
             int lastState = DFA.wrongState;
             int finalsCounter = 0;
             while (this.position.getCurrentPosition() != -1) {
-                currentState = this.dfa.getTransition(currentState, (char) this.position.getCurrentPosition());
+                currentState = this.dfa.getFactorizedTransition(currentState, (char) this.position.getCurrentPosition());
                 if (currentState == DFA.wrongState) break;
                 lastState = currentState;
                 if (this.dfa.isFinal(currentState)) {
@@ -85,7 +85,7 @@ public class Scanner {
                 this.tokens.add(new CommentToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
                 break;
             case "WS":
-                this.tokens.add(new WsToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
+//                this.tokens.add(new WsToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
                 break;
             default:
                 System.out.println("error");

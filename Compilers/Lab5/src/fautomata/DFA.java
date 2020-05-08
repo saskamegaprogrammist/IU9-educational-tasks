@@ -8,12 +8,14 @@ public class DFA {
     private ArrayList<ArrayList<Integer>> states;
     private int[][] transitions;
     private NFA nfa;
+    private FactorizedAlphabet factorizedAlphabet;
     public final static int wrongState = -1;
 
     public DFA(NFA nfa) {
         this.nfa = nfa;
         this.initiliazeStates();
         this.determinate();
+        this.factorize();
     }
 
     private void determinate() {
@@ -118,9 +120,10 @@ public class DFA {
         return result;
     }
 
-    public int getTransition(int state, char letter) {
+    public int getFactorizedTransition(int state, char letter) {
 //        System.out.println(letter + " " + state + " " + transitions[state][Alphabet.getNumber(letter)]);
-        return transitions[state][Alphabet.getNumber(letter)];
+        int newLetter = factorizedAlphabet.findLetter(Alphabet.getNumber(letter));
+        return transitions[state][newLetter];
     }
 
     public boolean isFinal(int state) {
@@ -129,5 +132,27 @@ public class DFA {
 
     public String getFinal(int state) {
         return this.finals.get(state);
+    }
+
+    private void factorize() {
+        this.factorizedAlphabet = new FactorizedAlphabet(this);
+        int alphSize = FactorizedAlphabet.getSize();
+        int [][] newTransitions = new int[statesSize][alphSize];
+        for (int i=0; i<statesSize; i++) {
+            for (int j=0; j<alphSize; j++) {
+                int oldLetter = factorizedAlphabet.getLetter(j).get(0);
+                newTransitions[i][j]=transitions[i][oldLetter];
+            }
+        }
+        transitions = newTransitions;
+    }
+
+    public boolean compareSymbols(int a, int b) {
+        int i = 0;
+        for (; i<statesSize; i++) {
+            if (transitions[i][a] != transitions[i][b]) break;
+        }
+        if (i == statesSize) return true;
+        else return false;
     }
 }
