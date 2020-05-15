@@ -3,4 +3,4 @@ project(first)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(first optimization.cpp)
+add_executable(first double_integral.cpp)

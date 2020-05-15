@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/first.dir/optimization.cpp.o  -o first 
+/usr/bin/c++  -g   CMakeFiles/first.dir/double_integral.cpp.o  -o first 

@@ -57,27 +57,27 @@ include CMakeFiles/first.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/first.dir/flags.make
 
-CMakeFiles/first.dir/optimization.cpp.o: CMakeFiles/first.dir/flags.make
-CMakeFiles/first.dir/optimization.cpp.o: ../optimization.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/first.dir/optimization.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/first.dir/optimization.cpp.o -c /home/alexis/IU9-educational-tasks/NumericalMethods/optimization.cpp
+CMakeFiles/first.dir/double_integral.cpp.o: CMakeFiles/first.dir/flags.make
+CMakeFiles/first.dir/double_integral.cpp.o: ../double_integral.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/first.dir/double_integral.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/first.dir/double_integral.cpp.o -c /home/alexis/IU9-educational-tasks/NumericalMethods/double_integral.cpp
 
-CMakeFiles/first.dir/optimization.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/first.dir/optimization.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexis/IU9-educational-tasks/NumericalMethods/optimization.cpp > CMakeFiles/first.dir/optimization.cpp.i
+CMakeFiles/first.dir/double_integral.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/first.dir/double_integral.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexis/IU9-educational-tasks/NumericalMethods/double_integral.cpp > CMakeFiles/first.dir/double_integral.cpp.i
 
-CMakeFiles/first.dir/optimization.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/first.dir/optimization.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexis/IU9-educational-tasks/NumericalMethods/optimization.cpp -o CMakeFiles/first.dir/optimization.cpp.s
+CMakeFiles/first.dir/double_integral.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/first.dir/double_integral.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexis/IU9-educational-tasks/NumericalMethods/double_integral.cpp -o CMakeFiles/first.dir/double_integral.cpp.s
 
 # Object files for target first
 first_OBJECTS = \
-"CMakeFiles/first.dir/optimization.cpp.o"
+"CMakeFiles/first.dir/double_integral.cpp.o"
 
 # External object files for target first
 first_EXTERNAL_OBJECTS =
 
-first: CMakeFiles/first.dir/optimization.cpp.o
+first: CMakeFiles/first.dir/double_integral.cpp.o
 first: CMakeFiles/first.dir/build.make
 first: CMakeFiles/first.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable first"

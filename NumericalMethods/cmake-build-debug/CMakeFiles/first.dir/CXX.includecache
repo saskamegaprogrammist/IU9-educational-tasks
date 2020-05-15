@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/alexis/IU9-educational-tasks/NumericalMethods/optimization.cpp
-iostream
--
+/home/alexis/IU9-educational-tasks/NumericalMethods/double_integral.cpp
 cmath
+-
+iostream
 -
 

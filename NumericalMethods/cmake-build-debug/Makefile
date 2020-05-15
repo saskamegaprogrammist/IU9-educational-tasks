@@ -123,32 +123,32 @@ first/fast:
 	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/build
 .PHONY : first/fast
 
-optimization.o: optimization.cpp.o
+double_integral.o: double_integral.cpp.o
 
-.PHONY : optimization.o
+.PHONY : double_integral.o
 
 # target to build an object file
-optimization.cpp.o:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/optimization.cpp.o
-.PHONY : optimization.cpp.o
+double_integral.cpp.o:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/double_integral.cpp.o
+.PHONY : double_integral.cpp.o
 
-optimization.i: optimization.cpp.i
+double_integral.i: double_integral.cpp.i
 
-.PHONY : optimization.i
+.PHONY : double_integral.i
 
 # target to preprocess a source file
-optimization.cpp.i:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/optimization.cpp.i
-.PHONY : optimization.cpp.i
+double_integral.cpp.i:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/double_integral.cpp.i
+.PHONY : double_integral.cpp.i
 
-optimization.s: optimization.cpp.s
+double_integral.s: double_integral.cpp.s
 
-.PHONY : optimization.s
+.PHONY : double_integral.s
 
 # target to generate assembly for a file
-optimization.cpp.s:
-	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/optimization.cpp.s
-.PHONY : optimization.cpp.s
+double_integral.cpp.s:
+	$(MAKE) -f CMakeFiles/first.dir/build.make CMakeFiles/first.dir/double_integral.cpp.s
+.PHONY : double_integral.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... first"
 	@echo "... edit_cache"
-	@echo "... optimization.o"
-	@echo "... optimization.i"
-	@echo "... optimization.s"
+	@echo "... double_integral.o"
+	@echo "... double_integral.i"
+	@echo "... double_integral.s"
 .PHONY : help
 
 

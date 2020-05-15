@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/first.dir/optimization.cpp.o"
+  "CMakeFiles/first.dir/double_integral.cpp.o"
   "first"
   "first.pdb"
 )
