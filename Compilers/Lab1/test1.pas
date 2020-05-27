@@ -8,7 +8,6 @@ var
   i: integer;
  
 begin
-  write('Введите количество элементов в массиве: ');
   read(N);
   write('Введите элементы массива: ');
   for i:=1 to N do
