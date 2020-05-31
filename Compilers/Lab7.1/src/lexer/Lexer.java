@@ -33,57 +33,61 @@ public class Lexer {
                 while (this.position.isWhiteSpace()) {
                     this.position.next();
                 }
-                if (this.position.getCurrentPosition() == 'a') {
-                    int startIndex = this.position.getIndex();
-                    this.position.next();
-                    while (this.position.isSmallLetter()) {
+                if (this.position.isSmallLetter()) {
+                    if (this.position.getCurrentPosition() == 'a') {
+                        int startIndex = this.position.getIndex();
                         this.position.next();
-                    }
-                    String newToken = programm.substring(startIndex, this.position.getIndex());
-                    if (newToken.equals("axiom")) {
-                        while (this.position.isWhiteSpace()) {
+                        while (this.position.isSmallLetter()) {
                             this.position.next();
                         }
-                        if (this.position.isCapLetter()) {
-                            while (this.position.isCapLetter()) this.position.next();
-                        } else {
-                            this.messages.add(new Message("axiom token needs to start with capital letter", true, new Position(this.position)));
+                        String newToken = programm.substring(startIndex, this.position.getIndex());
+                        if (newToken.equals("axiom")) {
+                            while (this.position.isWhiteSpace()) {
+                                this.position.next();
+                            }
+                            if (this.position.isCapLetter()) {
+                                while (this.position.isCapLetter()) this.position.next();
+                            } else {
+                                this.messages.add(new Message("axiom token needs to start with capital letter", true, new Position(this.position)));
+                            }
                             if (this.position.isLetter()) {
                                 while (this.position.isLetter()) this.position.next();
                             }
+                            if (this.position.isDigit()) {
+                                while (this.position.isDigit()) this.position.next();
+                            }
+                            while (this.position.isWhiteSpace()) {
+                                this.position.next();
+                            }
+                            if (!this.position.isCloseBracket()) {
+                                while (this.position.isLetterOrDigit()) this.position.next();
+                                this.messages.add(new Message("axiom token needs close bracket", true, new Position(this.position)));
+                            } else {
+                                this.position.next();
+                            }
+                            this.tokens.add(new AxiomToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
+                            continue;
                         }
-                        if (this.position.isDigit()) {
-                            while (this.position.isDigit()) this.position.next();
-                        }
-                        while (this.position.isWhiteSpace()) {
-                            this.position.next();
-                        }
-                        if (!this.position.isCloseBracket()) {
-                            while (this.position.isLetterOrDigit()) this.position.next();
-                            this.messages.add(new Message("axiom token needs close bracket", true, new Position(this.position)));
-                        }
-                        this.position.next();
-                        this.tokens.add(new AxiomToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
-                        continue;
-                    } else {
-                        this.messages.add(new Message("neteminal token needs to start with capital letter", true, new Position(this.position)));
-                        while (this.position.isWhiteSpace()) {
-                            this.position.next();
-                        }
-                        if (this.position.isLetterOrDigit()) {
-                            while (this.position.isLetterOrDigit()) this.position.next();
-                        }
-                        while (this.position.isWhiteSpace()) {
-                            this.position.next();
-                        }
-                        if (!this.position.isCloseBracket()) {
-                            this.messages.add(new Message("token needs close bracket", true, new Position(this.position)));
-                        }
-                        this.position.next();
-                        this.tokens.add(new NeterminalToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
-                        continue;
                     }
+                    this.messages.add(new Message("neteminal token needs to start with capital letter", true, new Position(this.position)));
+                    while (this.position.isWhiteSpace()) {
+                        this.position.next();
+                    }
+                    if (this.position.isLetterOrDigit()) {
+                        while (this.position.isLetterOrDigit()) this.position.next();
+                    }
+                    while (this.position.isWhiteSpace()) {
+                        this.position.next();
+                    }
+                    if (!this.position.isCloseBracket()) {
+                        this.messages.add(new Message("token needs close bracket", true, new Position(this.position)));
+                    } else {
+                        this.position.next();
+                    }
+                    this.tokens.add(new NeterminalToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
+                    continue;
                 }
+
                 if (this.position.isCapLetter()) {
                     while (this.position.isCapLetter()) this.position.next();
                     if (this.position.isDigit()) {
@@ -93,10 +97,10 @@ public class Lexer {
                         this.position.next();
                     }
                     if (!this.position.isCloseBracket()) {
-                        while (this.position.isLetterOrDigit()) this.position.next();
                         this.messages.add(new Message("neterminal token needs close bracket", true, new Position(this.position)));
+                    } else  {
+                        this.position.next();
                     }
-                    this.position.next();
                     this.tokens.add(new NeterminalToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
                     continue;
                 } else {
@@ -120,7 +124,12 @@ public class Lexer {
                 }
                 continue;
             }
-            while (!this.position.isWhiteSpace() && this.position.getCurrentPosition() != -1) {
+            if (this.position.isCloseBracket()) {
+                this.messages.add(new Message("must be escaped", true, new Position(this.position)));
+                this.position.next();
+                continue;
+            }
+            while ((this.position.isSymbol() || this.position.isLetterOrDigit()) && !this.position.isWhiteSpace() && this.position.getCurrentPosition() != -1) {
                 this.position.next();
             }
             this.tokens.add(new TerminalToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));

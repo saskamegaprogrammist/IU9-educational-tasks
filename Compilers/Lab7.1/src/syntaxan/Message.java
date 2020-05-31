@@ -16,9 +16,9 @@ public class Message {
     @Override
     public String toString() {
         if (atNode.getType() == Utils.TreeNodeType.TERMINAL) {
-            return "ERROR: " + text + " Terminal: " + ((Terminal)atNode).getTokenTag() + " Token: "+ atToken.getTag() + " : " + atToken.getAttribute();
+            return "ERROR: " + text + " Terminal: " + ((Terminal)atNode).getTokenTag() + " Token: "+ atToken.toString();
         } else {
-            return "ERROR: " + text + " Neterminal: " + ((Neterminal)atNode).getName() + " Token: "+ atToken.getTag() + " : " + atToken.getAttribute();
+            return "ERROR: " + text + " Neterminal: " + ((Neterminal)atNode).getName() + " Token: "+ atToken.toString();
 
         }
     }
