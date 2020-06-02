@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class TerminalToken extends Token {
 
-    private String charEscaped = "\\\\[(|)|.|||=]";
+    private String charEscaped = "\\\\[(|)|.|||=|\\[|\\]|+|*|?]";
     private String escape = "\\\\";
     private String emptyString = "";
 

@@ -40,49 +40,6 @@ public class Lexer {
                     continue;
                 }
                 if (this.position.isSmallLetter() || this.position.isDigit() || this.position.isSymbol()) {
-                    if (this.position.getCurrentPosition() == 'a') {
-                        int startIndex = this.position.getIndex();
-                        this.position.next();
-                        while (this.position.isLetter()) {
-                            this.position.next();
-                        }
-                        String newToken = programm.substring(startIndex, this.position.getIndex());
-                        if (newToken.equals("axiom")) {
-                            while (this.position.isWhiteSpace()) {
-                                this.position.next();
-                            }
-                            if (this.position.isCloseBracket()) {
-                                this.messages.add(new Message("axiom needs a name", true, new Position(this.position)));
-                                this.position.next();
-                                this.tokens.add(new AxiomToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
-                                continue;
-                            }
-                            if (this.position.isCapLetter()) {
-                                while (this.position.isCapLetter()) this.position.next();
-                            } else {
-                                this.messages.add(new Message("axiom token needs to start with capital letter", false, new Position(this.position)));
-                            }
-                            if (this.position.isDigit()) {
-                                while (this.position.isDigit()) this.position.next();
-                            }
-                            if (this.position.isSmallLetter() || this.position.isSymbol()) {
-                                this.messages.add(new Message("neterminal token name must look like: T1 ", false, new Position(this.position)));
-                                while (this.position.isLetterOrDigit() || this.position.isSymbol())
-                                    this.position.next();
-                            }
-                            while (this.position.isWhiteSpace()) {
-                                this.position.next();
-                            }
-                            if (!this.position.isCloseBracket()) {
-                                while (this.position.isLetterOrDigit()) this.position.next();
-                                this.messages.add(new Message("axiom token needs close bracket", true, new Position(this.position)));
-                            } else {
-                                this.position.next();
-                            }
-                            this.tokens.add(new AxiomToken(programm.substring(start.getIndex(), this.position.getIndex()), start, new Position(this.position)));
-                            continue;
-                        }
-                    }
                     this.messages.add(new Message("neterminal token name must look like: T1", false, new Position(this.position)));
                     if (this.position.isLetterOrDigit() || this.position.isSymbol()) {
                         while (this.position.isLetterOrDigit() || this.position.isSymbol()) this.position.next();

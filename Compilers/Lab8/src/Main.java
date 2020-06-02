@@ -1,5 +1,5 @@
 import lexer.Lexer;
-import syntaxan.SyntaxAnalizator;
+import parser.Parser;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -18,12 +18,11 @@ public class Main {
         scanner.close();
         Lexer lexer = new Lexer();
         lexer.analyzeProgramm(contents);
-        lexer.printTokens();
+//        lexer.printTokens();
         lexer.printMessages();
 
-        SyntaxAnalizator syntaxAnalizator = new SyntaxAnalizator();
-        syntaxAnalizator.setChain(lexer.getTokens());
-        syntaxAnalizator.printTree();
-        syntaxAnalizator.printMessages();
+        Parser parser = new Parser();
+        parser.setChain(lexer.getTokens());
+        parser.calculateFIRSTs();
     }
 }

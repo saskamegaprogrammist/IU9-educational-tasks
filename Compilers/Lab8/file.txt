@@ -1,0 +1,6 @@
+(S) = (RULE)+.
+(RULE) = net \= (RP)* \. .
+(RP) = (RPE)[\|(RP)]*.
+(RPE) = [net|term|(GP)](RPE1).
+(RPE1) = [\*|\?|\+]?(RPE).
+(GP) = \[(RP)\].

@@ -111,7 +111,10 @@ public class SyntaxAnalizator {
         rulesTable.addRule(new Cell("RP", Utils.TOKEN_TAG.TERMINAL), ruleId);
     }
 
-    public void topDown() {
+    private void topDown() throws Exception {
+        if (this.chain == null) {
+            throw new Exception("no tokens to parse");
+        }
         stack = new Stack<>();
         Neterminal startNeterminal =  new Neterminal("S'");
         stack.push(new Terminal(Utils.TOKEN_TAG.END, startNeterminal));
@@ -157,11 +160,23 @@ public class SyntaxAnalizator {
             if (currentTN.getType() == syntaxan.Utils.TreeNodeType.TERMINAL &&
                     ((Terminal) currentTN).getTokenTag() == Utils.TOKEN_TAG.END) break;
         }
-        treeNode =  startNeterminal.getChildNodes().get(0);
+        ArrayList<TreeNode> chNodes = startNeterminal.getChildNodes();
+        if (chNodes.size()>0) {
+            treeNode =  chNodes.get(0);
+        }
     }
 
     public void printTree() {
-        ((Neterminal) treeNode).printSelf(0);
+        if (treeNode == null) {
+            try {
+                this.topDown();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (treeNode != null) {
+            ((Neterminal) treeNode).printSelf(0);
+        }
     }
 
     public ArrayList<Message> getMessages() {
