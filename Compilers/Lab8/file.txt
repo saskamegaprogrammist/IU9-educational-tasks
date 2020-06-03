@@ -1,6 +1,8 @@
 (S) = (RULE)+.
-(RULE) = net \= (RP)* \. .
+(RULE) = !? net \= (RP)* \. .
 (RP) = (RPE)[\|(RP)]*.
 (RPE) = [net|term|(GP)](RPE1).
 (RPE1) = [\*|\?|\+]?(RPE).
-(GP) = \[(RP)\].
+(GP) = \[(RP)\](GP1).
+(GP1) = (A)*x.
+(A) = .

@@ -20,144 +20,142 @@ public class Parser {
         this.chain = chain;
     }
 
-    private Index parseTIMES(parser.Utils.PARSE_MODE mode, Index index, Rule rule) {
-        if (this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.PLUS) {
-            index.currentIndex++;
+    private int parseTIMES(parser.Utils.PARSE_MODE mode, int index, Rule rule) {
+        if (this.chain.get(index).getTag() == Utils.TOKEN_TAG.PLUS) {
+            index++;
         }
-        if (this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.QUESTION || this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.STAR) {
+        if (this.chain.get(index).getTag() == Utils.TOKEN_TAG.QUESTION || this.chain.get(index).getTag() == Utils.TOKEN_TAG.STAR) {
             if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
-                rule.setOldFirstSize();
                 rule.addToFirst(new Epsilon());
-                rule.setNewFirstSize();
             }
-            index.currentIndex++;
+            index++;
         }
         return index;
     }
 
-    private Index parseGP(parser.Utils.PARSE_MODE mode, Index index, Rule rule) throws Exception {
+    private int parseGP(parser.Utils.PARSE_MODE mode, int index, Rule rule) throws Exception {
         index = this.parseRP(mode, index, rule);
-        if (this.chain.get(index.currentIndex).getTag() != Utils.TOKEN_TAG.BR_CLOSE) {
-            throw new Exception(String.format("expected \\] token at position:%s", this.chain.get(index.currentIndex).toString()));
+        if (this.chain.get(index).getTag() != Utils.TOKEN_TAG.BR_CLOSE) {
+            throw new Exception(String.format("expected \\] token at position:%s", this.chain.get(index).toString()));
         }
-        index.currentIndex++;
+        index++;
         return index;
     }
 
-    private Index parseRP_E(parser.Utils.PARSE_MODE mode, Index index, Rule rule) throws Exception {
-        if (this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.NETERMINAL) {
+    private int parseRP_E(parser.Utils.PARSE_MODE mode, int index, Rule rule) throws Exception {
+        parser.Utils.PARSE_MODE modeTimes = mode;
+        parser.Utils.PARSE_MODE modeSelf = mode;
+        if (this.chain.get(index).getTag() == Utils.TOKEN_TAG.NETERMINAL) {
             if (mode == parser.Utils.PARSE_MODE.INITIAL) {
-                Neterminal newN = new Neterminal(this.chain.get(index.currentIndex).getAttribute());
+                Neterminal newN = new Neterminal(this.chain.get(index).getAttribute());
                 this.addNeterminal(newN);
-                index.currentIndex++;
-                index = this.parseTIMES(mode, index, rule);
-                index = this.parseRP_E(mode, index, rule);
             }
             if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
-                Neterminal newN = new Neterminal(this.chain.get(index.currentIndex).getAttribute());
-                rule.setOldFirstSize();
+                Neterminal newN = new Neterminal(this.chain.get(index).getAttribute());
                 Rule add = this.rules.get(this.rulesMap.get(newN));
                 if (add.hasEps()) {
                     rule.addToFirst(add.getFIRSTwoEps());
-                    rule.setNewFirstSize();
-                    index.currentIndex++;
-                    index = this.parseTIMES(parser.Utils.PARSE_MODE.CALCULATE, index, rule);
-                    index = this.parseRP_E(parser.Utils.PARSE_MODE.CALCULATE, index, rule);
+                    modeSelf = parser.Utils.PARSE_MODE.CALCULATE;
                 } else {
                     rule.addToFirst(add.getFIRST());
-                    rule.setNewFirstSize();
-                    index.currentIndex++;
-                    index = this.parseTIMES(parser.Utils.PARSE_MODE.CALCULATE, index, rule);
-                    index = this.parseRP_E(parser.Utils.PARSE_MODE.SKIP, index, rule);
+                    modeSelf = parser.Utils.PARSE_MODE.SKIP;
                 }
             }
-            if (mode == parser.Utils.PARSE_MODE.SKIP) {
-                index.currentIndex++;
-                index = this.parseTIMES(parser.Utils.PARSE_MODE.SKIP, index, rule);
-                index = this.parseRP_E(parser.Utils.PARSE_MODE.SKIP, index, rule);
-            }
-            return index;
-        } else if (this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.TERMINAL) {
+            index++;
+            index = this.parseTIMES(modeTimes, index, rule);
             if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
-                rule.setOldFirstSize();
-                rule.addToFirst(new Terminal(this.chain.get(index.currentIndex).getAttribute()));
-                rule.setNewFirstSize();
-                index.currentIndex++;
-                index = this.parseTIMES(parser.Utils.PARSE_MODE.SKIP, index, rule);
-                index = this.parseRP_E(parser.Utils.PARSE_MODE.SKIP, index, rule);
+                if (rule.hasEps()) {
+                    rule.removeEps();
+                    modeSelf = parser.Utils.PARSE_MODE.CALCULATE;
+                }
             }
-            if (mode == parser.Utils.PARSE_MODE.SKIP || mode == parser.Utils.PARSE_MODE.INITIAL) {
-                index.currentIndex++;
-                index = this.parseTIMES(mode, index, rule);
-                index = this.parseRP_E(mode, index, rule);
-            }
+            index = this.parseRP_E(modeSelf, index, rule);
             return index;
-        } else if (this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.BR_OPEN) {
-            index.currentIndex++;
+        } else if (this.chain.get(index).getTag() == Utils.TOKEN_TAG.TERMINAL) {
+            if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
+                rule.addToFirst(new Terminal(this.chain.get(index).getAttribute()));
+                modeTimes = parser.Utils.PARSE_MODE.CALCULATE;
+            }
+            index++;
+            index = this.parseTIMES(modeTimes, index, rule);
+            if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
+                if (rule.hasEps()) {
+                    rule.removeEps();
+                    modeSelf = parser.Utils.PARSE_MODE.CALCULATE;
+
+                } else {
+                    modeSelf = parser.Utils.PARSE_MODE.SKIP;
+                }
+            }
+            index = this.parseRP_E(modeSelf, index, rule);
+            return index;
+        } else if (this.chain.get(index).getTag() == Utils.TOKEN_TAG.BR_OPEN) {
+            index++;
             index = this.parseGP(mode, index, rule);
+            index = this.parseTIMES(mode, index, rule);
             if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
-                index = this.parseTIMES(parser.Utils.PARSE_MODE.CALCULATE, index, rule);
-                index = this.parseRP_E(parser.Utils.PARSE_MODE.SKIP, index, rule);
+                if (rule.hasEps()) {
+                    rule.removeEps();
+                    modeSelf = parser.Utils.PARSE_MODE.CALCULATE;
+
+                } else {
+                    modeSelf = parser.Utils.PARSE_MODE.SKIP;
+                }
             }
-            if (mode == parser.Utils.PARSE_MODE.SKIP || mode == parser.Utils.PARSE_MODE.INITIAL) {
-                index = this.parseTIMES(mode, index, rule);
-                index = this.parseRP_E(mode, index, rule);
-            }
+            index = this.parseRP_E(modeSelf, index, rule);
             return index;
         } else {
             if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
-                rule.setOldFirstSize();
                 rule.addToFirst(new Epsilon());
-                rule.setNewFirstSize();
             }
             return index;
         }
     }
 
 
-    private Index parseRP_END(parser.Utils.PARSE_MODE mode, Index index, Rule rule) throws Exception {
-        if (this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.DELIMITER) {
-            index.currentIndex++;
+    private int parseRP_END(parser.Utils.PARSE_MODE mode, int index, Rule rule) throws Exception {
+        if (this.chain.get(index).getTag() == Utils.TOKEN_TAG.DELIMITER) {
+            index++;
             return this.parseRP(mode, index, rule);
         }
         return index;
     }
 
 
-    private Index parseRP(parser.Utils.PARSE_MODE mode, Index index, Rule rule) throws Exception {
+    private int parseRP(parser.Utils.PARSE_MODE mode, int index, Rule rule) throws Exception {
         index = this.parseRP_E(mode, index, rule);
         return this.parseRP_END(mode, index, rule);
     }
 
-    private Index parseRULE(parser.Utils.PARSE_MODE mode, Index index) throws Exception {
-        if (this.chain.get(index.currentIndex).getTag() != Utils.TOKEN_TAG.NETERMINAL) {
-            throw new Exception(String.format("expected neterminal token at position:%s", this.chain.get(index.currentIndex).toString()));
+    private int parseRULE(parser.Utils.PARSE_MODE mode, int index) throws Exception {
+        if (this.chain.get(index).getTag() != Utils.TOKEN_TAG.NETERMINAL) {
+            throw new Exception(String.format("expected neterminal token at position:%s", this.chain.get(index).toString()));
         }
         Rule rule = null;
         if (mode == parser.Utils.PARSE_MODE.INITIAL) {
-            Neterminal newRuleN = new Neterminal(this.chain.get(index.currentIndex).getAttribute());
+            Neterminal newRuleN = new Neterminal(this.chain.get(index).getAttribute());
             this.addRule(newRuleN);
         }
         if (mode == parser.Utils.PARSE_MODE.CALCULATE) {
-            Neterminal newRuleN = new Neterminal(this.chain.get(index.currentIndex).getAttribute());
+            Neterminal newRuleN = new Neterminal(this.chain.get(index).getAttribute());
             rule = rules.get(rulesMap.get(newRuleN));
         }
-        index.currentIndex++;
-        if (this.chain.get(index.currentIndex).getTag() != Utils.TOKEN_TAG.EQ) {
-            throw new Exception(String.format("expected = token at position:%s", this.chain.get(index.currentIndex).toString()));
+        index++;
+        if (this.chain.get(index).getTag() != Utils.TOKEN_TAG.EQ) {
+            throw new Exception(String.format("expected = token at position:%s", this.chain.get(index).toString()));
         }
-        index.currentIndex++;
+        index++;
         index = this.parseRP(mode, index, rule);
-        if (this.chain.get(index.currentIndex).getTag() != Utils.TOKEN_TAG.DOT) {
-            throw new Exception(String.format("expected . token at position:%s", this.chain.get(index.currentIndex).toString()));
+        if (this.chain.get(index).getTag() != Utils.TOKEN_TAG.DOT) {
+            throw new Exception(String.format("expected . token at position:%s", this.chain.get(index).toString()));
         }
-        index.currentIndex++;
+        index++;
         return index;
     }
 
 
-    private Index parseRULE1(parser.Utils.PARSE_MODE mode, Index index) throws Exception {
-        if (this.chain.get(index.currentIndex).getTag() == Utils.TOKEN_TAG.END) {
+    private int parseRULE1(parser.Utils.PARSE_MODE mode, int index) throws Exception {
+        if (this.chain.get(index).getTag() == Utils.TOKEN_TAG.END) {
             return index;
         }
         index = parseRULE(mode, index);
@@ -166,7 +164,7 @@ public class Parser {
     }
 
     private void parseS(parser.Utils.PARSE_MODE mode) throws Exception {
-        Index index = this.parseRULE(mode, new Index(0, parser.Utils.IGNORE));
+        int index = this.parseRULE(mode, 0);
         this.parseRULE1(mode, index);
     }
 

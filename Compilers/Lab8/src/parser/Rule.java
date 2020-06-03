@@ -16,6 +16,10 @@ public class Rule implements Comparable<Rule> {
         FIRST = new ArrayList<>();
     }
 
+    public boolean isEmptyFirst() {
+        return newFirstSize == 0;
+    }
+
     public String getName() {
         return neterminal.getName();
     }
@@ -32,7 +36,7 @@ public class Rule implements Comparable<Rule> {
         return changedFirst;
     }
 
-    public void setNewFirstSize() {
+    private void setNewFirstSize() {
         this.newFirstSize = this.FIRST.size();
         this.changedFirst = this.newFirstSize - this.oldFirstSize > 0;
     }
@@ -51,17 +55,28 @@ public class Rule implements Comparable<Rule> {
         return cleanFirst;
     }
 
-    public void setOldFirstSize() {
+    public void removeEps() {
+        this.setOldFirstSize();
+        if (hasEps) {
+            FIRST.removeIf(t -> (t instanceof Epsilon));
+        }
+        hasEps = false;
+        this.setNewFirstSize();
+    }
+
+    private void setOldFirstSize() {
         this.oldFirstSize = this.FIRST.size();
     }
 
     public void addToFirst(Terminal terminal) {
+        this.setOldFirstSize();
         if (!this.FIRST.contains(terminal)) {
             this.FIRST.add(terminal);
         }
         if (terminal instanceof Epsilon) {
             hasEps = true;
         }
+        this.setNewFirstSize();
     }
 
     public boolean hasEps() {
@@ -69,9 +84,11 @@ public class Rule implements Comparable<Rule> {
     }
 
     public void addToFirst(ArrayList<Terminal> first) {
+        this.setOldFirstSize();
         for (Terminal term: first) {
             this.addToFirst(term);
         }
+        this.setNewFirstSize();
     }
 
     @Override
