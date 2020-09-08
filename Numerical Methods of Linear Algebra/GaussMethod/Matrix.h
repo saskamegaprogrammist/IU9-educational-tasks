@@ -16,6 +16,7 @@ private:
     int sizeColumn;
     bool diagonal;
     bool zerosOnDiagonal;
+    void checkZerosOnDiagonal();
 public:
     Matrix();
     Matrix(float ** array, const int &sizeRow, const int &sizeColumn);

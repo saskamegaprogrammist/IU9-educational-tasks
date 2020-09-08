@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Vector.h"
 #include "Matrix.h"
+#include "Round.h"
 
 using namespace std;
 
@@ -9,11 +10,11 @@ int gaussMethod(Matrix system, Vector & answer) {
     if (system.hasZerosOnDiagonal() || system.getMatrixRows() >= system.getMatrixColumns()) {
         system.removeEmptyRows();
     }
-    if (system.getMatrixRows() >= system.getMatrixColumns()) {
+    if (system.hasZerosOnDiagonal() || system.getMatrixRows() < system.getMatrixColumns() - 1) {
         cout << "system has no solution" << endl;
         return -1;
     }
-    if (system.getMatrixRows() < system.getMatrixColumns() - 1) {
+    if (system.getMatrixRows() >= system.getMatrixColumns()) {
         cout << "system has more than one solution" << endl;
         return -1;
     }

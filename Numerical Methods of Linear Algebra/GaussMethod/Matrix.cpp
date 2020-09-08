@@ -3,6 +3,7 @@
 //
 
 #include "Matrix.h"
+#include "Round.h"
 
 Matrix::Matrix() {
     this->matrixArray = nullptr;
@@ -117,23 +118,24 @@ void Matrix::printSelf() {
 }
 
 void Matrix::makeDiagonal() {
+    Round round = Round();
     for (int i = 0; i < this->sizeRow; i++) {
         float koeff = this->matrixArray[i][i];
         if (koeff != 0) {
             for (int j = 0; j < this->sizeColumn; j++) {
                 this->matrixArray[i][j] /= koeff;
             }
-        } else {
-            this->zerosOnDiagonal = true;
         }
         for (int k = i+1; k < this->sizeRow; k++) {
             float newKoeff = this->matrixArray[k][i];
             if (newKoeff != 0) {
                 for (int t = 0; t < this->sizeColumn; t++) {
-                    this->matrixArray[k][t] -= newKoeff*matrixArray[i][t];
+                    float newValue = this->matrixArray[k][t] - newKoeff*matrixArray[i][t];
+                    this->matrixArray[k][t] = round.round(newValue);
                 }
             }
         }
+        this->printSelf();
     }
     this->diagonal = true;
 }
@@ -185,6 +187,7 @@ bool Matrix::isDiagonal() {
 }
 
 bool Matrix::hasZerosOnDiagonal() {
+    this->checkZerosOnDiagonal();
     return this->zerosOnDiagonal;
 }
 
@@ -194,4 +197,18 @@ float * Matrix::getLine(int i) {
 
 float Matrix::at(int row, int column) {
     return this->matrixArray[row][column];
+}
+
+void Matrix::checkZerosOnDiagonal() {
+    int minValue = this->sizeColumn;
+    if (this->sizeColumn >= this->sizeRow) {
+        minValue = this->sizeRow;
+    }
+    for (int i = 0; i < minValue; i++) {
+        if (this->matrixArray[i][i] == 0) {
+            this->zerosOnDiagonal = true;
+            break;
+        }
+    }
+    this->zerosOnDiagonal = false;
 }
