@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/first.dir/double_integral.cpp.o  -o first 

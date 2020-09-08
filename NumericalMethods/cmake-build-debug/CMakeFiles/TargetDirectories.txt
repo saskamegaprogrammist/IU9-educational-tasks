@@ -1,3 +1,0 @@
-/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles/first.dir
-/home/alexis/IU9-educational-tasks/NumericalMethods/cmake-build-debug/CMakeFiles/edit_cache.dir
