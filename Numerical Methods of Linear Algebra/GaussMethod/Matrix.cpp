@@ -121,21 +121,27 @@ void Matrix::makeDiagonal() {
     Round round = Round();
     for (int i = 0; i < this->sizeRow; i++) {
         float koeff = this->matrixArray[i][i];
-        if (koeff != 0) {
-            for (int j = 0; j < this->sizeColumn; j++) {
-                this->matrixArray[i][j] /= koeff;
-            }
+        float * normalizedLine;
+        normalizedLine = new float [this->sizeColumn];
+        if (koeff == 0) {
+            this->swapLines(i, i);
+            koeff = this->matrixArray[i][i];
+            if (koeff == 0) koeff = 1;
         }
+        for (int j = 0; j < this->sizeColumn; j++) {
+            normalizedLine[j] = this->matrixArray[i][j] / koeff;
+        }
+
         for (int k = i+1; k < this->sizeRow; k++) {
             float newKoeff = this->matrixArray[k][i];
             if (newKoeff != 0) {
                 for (int t = 0; t < this->sizeColumn; t++) {
-                    float newValue = this->matrixArray[k][t] - newKoeff*matrixArray[i][t];
+                    float newValue = this->matrixArray[k][t] - newKoeff*normalizedLine[t];
                     this->matrixArray[k][t] = round.round(newValue);
                 }
             }
         }
-        this->printSelf();
+        delete []normalizedLine;3
     }
     this->diagonal = true;
 }
@@ -207,8 +213,22 @@ void Matrix::checkZerosOnDiagonal() {
     for (int i = 0; i < minValue; i++) {
         if (this->matrixArray[i][i] == 0) {
             this->zerosOnDiagonal = true;
-            break;
+            return;
         }
     }
     this->zerosOnDiagonal = false;
+}
+
+void Matrix::swapLines(int rowZero, int columnZero) {
+    int swapLine = rowZero+1;
+    for ( ; swapLine < this->sizeRow; swapLine++) {
+        if (this->matrixArray[swapLine][columnZero] != 0) break;
+    }
+    if (swapLine == this->sizeRow) return;
+    float swap;
+    for (int i = 0; i < this->sizeColumn; i++) {
+        swap = this->matrixArray[swapLine][i];
+        this->matrixArray[swapLine][i] =  this->matrixArray[rowZero][i];
+        this->matrixArray[rowZero][i] = swap;
+    }
 }

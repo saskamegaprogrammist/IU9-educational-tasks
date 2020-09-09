@@ -2,7 +2,7 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "Round.h"
-
+#include <Eigen/Dense>
 using namespace std;
 
 int gaussMethod(Matrix system, Vector & answer) {
@@ -187,6 +187,15 @@ int thirdTest() {
     delete [] matrixFirst;
 
     return 0;
+}
+
+int test4() {
+    MatrixXd m = MatrixXd::Random(3,3);
+    m = (m + MatrixXd::Constant(3,3,1.2)) * 50;
+    cout << "m =" << endl << m << endl;
+    VectorXd v(3);
+    v << 1, 2, 3;
+    cout << "m * v =" << endl << m * v << endl;
 }
 
 int main() {

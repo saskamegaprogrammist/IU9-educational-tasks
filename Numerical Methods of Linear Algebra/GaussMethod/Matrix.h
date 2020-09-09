@@ -17,6 +17,7 @@ private:
     bool diagonal;
     bool zerosOnDiagonal;
     void checkZerosOnDiagonal();
+    void swapLines(int rowZero, int columnZero);
 public:
     Matrix();
     Matrix(float ** array, const int &sizeRow, const int &sizeColumn);
