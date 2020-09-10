@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Vector.h"
 #include "Matrix.h"
-#include "Round.h"
 #include <Eigen/Dense>
 using namespace std;
 
@@ -64,8 +63,7 @@ int firstTest() {
     Vector vectorFirstCopy = vectorFirst;
     vectorFirst.multiplyScalar(vectorSecond);
     vectorFirst.printSelf();
-    vectorFirstCopy.printSelf();
-    vectorSecond.printSelf();
+
 
     delete [] vectorFirstArray;
     delete [] vectorSecondArray;
@@ -104,7 +102,7 @@ int secondTest() {
     for (int i = 0; i < sizeFirstRow; i++) {
         matrixAnswer[i] = new float[sizeSecondColumn];
     }
-    cout << "Enter system matrix" << endl;
+    cout << "Enter first matrix" << endl;
     for (int i = 0; i < sizeFirstRow; i++) {
         for (int j = 0; j < sizeFirstColumn; j++) {
             cin >> matrixFirst[i][j];
@@ -189,19 +187,60 @@ int thirdTest() {
     return 0;
 }
 
-int test4() {
-    MatrixXd m = MatrixXd::Random(3,3);
-    m = (m + MatrixXd::Constant(3,3,1.2)) * 50;
-    cout << "m =" << endl << m << endl;
-    VectorXd v(3);
-    v << 1, 2, 3;
-    cout << "m * v =" << endl << m * v << endl;
+int fourthTest() {
+    int sizeFirstRow;
+    int sizeFirstColumn;
+
+    cout << "Enter sizes of matrix" << endl;
+    cin >> sizeFirstRow;
+    cin >> sizeFirstColumn;
+
+
+    float ** matrixFirst;
+
+    matrixFirst = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixFirst[i] = new float[sizeFirstColumn];
+    }
+
+
+    cout << "Enter matrix" << endl;
+    for (int i = 0; i < sizeFirstRow; i++) {
+        for (int j = 0; j < sizeFirstColumn; j++) {
+            cin >> matrixFirst[i][j];
+        }
+    }
+    Matrix firstMatrix = Matrix(matrixFirst, sizeFirstRow, sizeFirstColumn);
+
+
+    firstMatrix.makeDiagonal();
+    firstMatrix.printSelf();
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixFirst[i];
+    }
+
+    delete [] matrixFirst;
+
+    return 0;
+}
+
+int fifthTest() {
+    Eigen::Matrix3f A;
+    Eigen::Vector3f b;
+    A << 1,2,3,  4,5,6,  7,8,10;
+    b << 3, 3, 4;
+    cout << "Here is the matrix A:\n" << A << endl;
+    cout << "Here is the vector b:\n" << b << endl;
+    Eigen::Vector3f x = A.completeOrthogonalDecomposition().solve(b);
+    cout << A << endl;
+    cout << "The solution is:\n" << x << endl;
 }
 
 int main() {
-    int result = thirdTest();
+    int result = fourthTest();
     if (result != 0) {
-        cout << "Unexpected error during test 3" << endl;
+        cout << "Unexpected error during test" << endl;
         return -1;
     }
 }

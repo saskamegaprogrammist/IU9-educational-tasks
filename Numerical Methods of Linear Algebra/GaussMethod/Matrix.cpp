@@ -141,7 +141,7 @@ void Matrix::makeDiagonal() {
                 }
             }
         }
-        delete []normalizedLine;3
+        delete []normalizedLine;
     }
     this->diagonal = true;
 }
