@@ -37,6 +37,9 @@ Vector::Vector(const Vector &original) {
 
 Vector::Vector(const int &size): vectorSize(size) {
     vectorArray = new float [vectorSize];
+    for (int i=0; i < vectorSize; i++) {
+        vectorArray[i] = 0;
+    }
 }
 
 Vector::~Vector() {

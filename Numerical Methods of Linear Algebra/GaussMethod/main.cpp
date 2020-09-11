@@ -154,35 +154,60 @@ int thirdTest() {
     cin >> sizeFirstColumn;
 
 
-    float ** matrixFirst;
+    float ** matrixSystem;
+    float ** matrixMain;
 
-    matrixFirst = new float*[sizeFirstRow];
+    matrixSystem = new float*[sizeFirstRow];
     for (int i = 0; i < sizeFirstRow; i++) {
-        matrixFirst[i] = new float[sizeFirstColumn];
+        matrixSystem[i] = new float[sizeFirstColumn];
+    }
+
+    matrixMain = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMain[i] = new float[sizeFirstColumn];
     }
 
 
     cout << "Enter system matrix" << endl;
     for (int i = 0; i < sizeFirstRow; i++) {
         for (int j = 0; j < sizeFirstColumn; j++) {
-            cin >> matrixFirst[i][j];
+            cin >> matrixSystem[i][j];
+            if (j != sizeFirstColumn -1) {
+                matrixMain[i][j] = matrixSystem[i][j];
+            }
         }
     }
-    Matrix firstMatrix = Matrix(matrixFirst, sizeFirstRow, sizeFirstColumn);
+    Matrix systemMatrix = Matrix(matrixSystem, sizeFirstRow, sizeFirstColumn);
+    Matrix mainMatrix = Matrix(matrixMain, sizeFirstRow, sizeFirstColumn-1);
 
 
     Vector answerVector(sizeFirstColumn-1);
-    int result = gaussMethod(firstMatrix, answerVector);
+    int result = gaussMethod(systemMatrix, answerVector);
     if (result != 0) {
         return -1;
     }
+
+    cout << "The solution is: " << endl;
     answerVector.printSelf();
 
+
+    Vector controlVector = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVector, controlVector);
+
+    cout << "Checking the solution: " << endl;
+    controlVector.printSelf();
+
     for (int i = 0; i < sizeFirstRow; i++) {
-        delete [] matrixFirst[i];
+        delete [] matrixSystem[i];
     }
 
-    delete [] matrixFirst;
+    delete [] matrixSystem;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMain[i];
+    }
+
+    delete [] matrixMain;
 
     return 0;
 }
@@ -226,19 +251,81 @@ int fourthTest() {
 }
 
 int fifthTest() {
-    Eigen::Matrix3f A;
-    Eigen::Vector3f b;
-    A << 1,2,3,  4,5,6,  7,8,10;
-    b << 3, 3, 4;
-    cout << "Here is the matrix A:\n" << A << endl;
-    cout << "Here is the vector b:\n" << b << endl;
-    Eigen::Vector3f x = A.completeOrthogonalDecomposition().solve(b);
-    cout << A << endl;
-    cout << "The solution is:\n" << x << endl;
+    Eigen::Matrix4f A;
+    Eigen::Vector4f b;
+    A << 5, 7, 2, 0, 0, 18, 8, 9, 12, 4, 3, 0, 5, 8, 65, 84;
+    b << 5, 58, 1, 3;
+    Eigen::Vector4f x = A.completeOrthogonalDecomposition().solve(b);
+    cout << "The eigen solution is:\n" << x << endl;
+    return 0;
+}
+
+int sixthTest() {
+    int sizeVector;
+
+    cout << "Enter size of the vector" << endl;
+    cin >> sizeVector;
+
+    float * vectorArray;
+
+    vectorArray = new float[sizeVector];
+
+    cout << "Enter vector" << endl;
+
+    for (int i = 0; i < sizeVector; i++) {
+        cin >> vectorArray[i] ;
+    }
+
+    int sizeMatrixRow;
+    int sizeMatrixColumn;
+
+    cout << "Enter sizes of matrix" << endl;
+    cin >> sizeMatrixRow;
+    cin >> sizeMatrixColumn;
+
+    float ** matrix;
+
+    matrix = new float*[sizeMatrixRow];
+
+    for (int i = 0; i < sizeMatrixColumn; i++) {
+        matrix[i] = new float[sizeMatrixColumn];
+    }
+
+    cout << "Enter matrix" << endl;
+
+    for (int i = 0; i < sizeMatrixRow; i++) {
+        for (int j = 0; j < sizeMatrixColumn; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+
+
+    Vector vectorFirst = Vector(vectorArray, sizeVector);
+    Matrix firstMatrix = Matrix(matrix, sizeMatrixRow, sizeMatrixColumn);
+
+    Vector vectorAnswer = Vector(sizeVector);
+
+    firstMatrix.multiplyOnVector(vectorFirst,vectorAnswer);
+    vectorAnswer.printSelf();
+
+
+    delete [] vectorArray;
+    for (int i = 0; i < sizeMatrixRow; i++) {
+        delete [] matrix[i];
+    }
+
+    delete [] matrix;
+
+    return 0;
 }
 
 int main() {
-    int result = fourthTest();
+    int result = thirdTest();
+    if (result != 0) {
+        cout << "Unexpected error during test" << endl;
+        return -1;
+    }
+    result = fifthTest();
     if (result != 0) {
         cout << "Unexpected error during test" << endl;
         return -1;

@@ -89,6 +89,7 @@ void Matrix::multiplyOnVector(const Vector &vector, const Vector &newVector) {
     }
     for (int i=0; i < this->sizeRow; i++) {
         for (int j=0; j < this->sizeColumn; j++) {
+            float nV = newVector.at(i) + this->matrixArray[i][j]*vector.at(j);
             newVector.set(i, newVector.at(i) + this->matrixArray[i][j]*vector.at(j));
         }
     }
