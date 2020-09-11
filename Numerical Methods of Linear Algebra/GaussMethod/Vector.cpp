@@ -77,7 +77,19 @@ void Vector::add(const Vector &vectorOther) {
     }
 }
 
-void Vector::multiplyScalar(const Vector &vectorOther) {
+float Vector::multiplyScalar(const Vector &vectorOther) {
+    if (this->vectorSize != vectorOther.vectorSize) {
+        cout << "Vectors sizes don't match" << endl;
+        return 0;
+    }
+    float scalar = 0;
+    for (int i = 0; i < vectorSize; i++) {
+        scalar += vectorArray[i] * vectorOther.vectorArray[i];
+    }
+    return scalar;
+}
+
+void Vector::multiplyOnVector(const Vector &vectorOther) {
     if (this->vectorSize != vectorOther.vectorSize) {
         cout << "Vectors sizes don't match" << endl;
         return;
@@ -87,7 +99,7 @@ void Vector::multiplyScalar(const Vector &vectorOther) {
     }
 }
 
-void Vector::multiplyScalar(const Vector &vectorOther, int fromIndex) {
+void Vector::multiplyOnVector(const Vector &vectorOther, int fromIndex) {
     if (this->vectorSize != vectorOther.vectorSize) {
         cout << "Vectors sizes don't match" << endl;
         return;

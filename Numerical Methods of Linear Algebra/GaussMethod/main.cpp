@@ -20,7 +20,7 @@ int gaussMethod(Matrix system, Vector & answer) {
     for (int i = system.getMatrixRows()-1; i >= 0; i--) {
         Vector answerCopy = Vector(answer);
         Vector row = Vector(system.getLine(i), system.getMatrixColumns()-1);
-        answerCopy.multiplyScalar(row, i);
+        answerCopy.multiplyOnVector(row, i);
         float elementSum = answerCopy.getElementsSum(i);
         answer.set(i, (system.at(i, system.getMatrixColumns()-1) - elementSum)/system.at(i, i));
     }
@@ -61,9 +61,7 @@ int firstTest() {
     Vector vectorSecond = Vector(vectorSecondArray, sizeSecondVector);
 
     Vector vectorFirstCopy = vectorFirst;
-    vectorFirst.multiplyScalar(vectorSecond);
-    vectorFirst.printSelf();
-
+    cout << vectorFirst.multiplyScalar(vectorSecond) << endl;
 
     delete [] vectorFirstArray;
     delete [] vectorSecondArray;
@@ -287,7 +285,7 @@ int sixthTest() {
 
     matrix = new float*[sizeMatrixRow];
 
-    for (int i = 0; i < sizeMatrixColumn; i++) {
+    for (int i = 0; i < sizeMatrixRow; i++) {
         matrix[i] = new float[sizeMatrixColumn];
     }
 
@@ -303,7 +301,7 @@ int sixthTest() {
     Vector vectorFirst = Vector(vectorArray, sizeVector);
     Matrix firstMatrix = Matrix(matrix, sizeMatrixRow, sizeMatrixColumn);
 
-    Vector vectorAnswer = Vector(sizeVector);
+    Vector vectorAnswer = Vector(sizeMatrixRow);
 
     firstMatrix.multiplyOnVector(vectorFirst,vectorAnswer);
     vectorAnswer.printSelf();
@@ -320,12 +318,7 @@ int sixthTest() {
 }
 
 int main() {
-    int result = thirdTest();
-    if (result != 0) {
-        cout << "Unexpected error during test" << endl;
-        return -1;
-    }
-    result = fifthTest();
+    int result = sixthTest();
     if (result != 0) {
         cout << "Unexpected error during test" << endl;
         return -1;

@@ -23,8 +23,9 @@ public:
     void set(int i, float value) const ;
     void add(const Vector &vectorOther);
     void substract(const Vector &vectorOther);
-    void multiplyScalar(const Vector &vectorOther);
-    void multiplyScalar(const Vector &vectorOther, int fromIndex);
+    void multiplyOnVector(const Vector &vectorOther);
+    void multiplyOnVector(const Vector &vectorOther, int fromIndex);
+    float multiplyScalar(const Vector &vectorOther);
     float getElementsSum(int fromIndex);
     void printSelf();
 
