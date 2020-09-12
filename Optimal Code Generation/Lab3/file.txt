@@ -1,0 +1,9 @@
+b=5;
+a=5;
+while(a>3)
+    if(b>4) then
+        a = 2;
+        else
+        a = a-1;
+c=2;
+return a+b*c;

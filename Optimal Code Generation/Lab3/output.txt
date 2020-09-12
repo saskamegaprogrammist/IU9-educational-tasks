@@ -1,0 +1,47 @@
+; ModuleID = 'Lab 3'
+source_filename = "Lab 3"
+
+define i64 @main() {
+main:
+  %b = alloca i64
+  store i64 5, i64* %b
+  %0 = load i64, i64* %b
+  %a = alloca i64
+  store i64 5, i64* %a
+  %1 = load i64, i64* %a
+  br label %loop
+
+loop:                                             ; preds = %ifcont, %main
+  %b1 = load i64, i64* %b
+  %cmpv = icmp ugt i64 %b1, 4
+  br i1 %cmpv, label %then, label %else
+
+then:                                             ; preds = %loop
+  store i64 2, i64* %a
+  %2 = load i64, i64* %a
+  br label %ifcont
+
+else:                                             ; preds = %loop
+  %a2 = load i64, i64* %a
+  %addv = sub i64 %a2, 1
+  store i64 %addv, i64* %a
+  %3 = load i64, i64* %a
+  br label %ifcont
+
+ifcont:                                           ; preds = %else, %then
+  %iftmp = phi i64 [ %2, %then ], [ %3, %else ]
+  %a3 = load i64, i64* %a
+  %cmpv4 = icmp ugt i64 %a3, 3
+  br i1 %cmpv4, label %loop, label %afterloop
+
+afterloop:                                        ; preds = %ifcont
+  %c = alloca i64
+  store i64 2, i64* %c
+  %4 = load i64, i64* %c
+  %a5 = load i64, i64* %a
+  %b6 = load i64, i64* %b
+  %c7 = load i64, i64* %c
+  %mulv = mul i64 %b6, %c7
+  %addv8 = add i64 %a5, %mulv
+  ret i64 %addv8
+}
