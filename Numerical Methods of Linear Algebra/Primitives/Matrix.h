@@ -16,8 +16,16 @@ private:
     int sizeColumn;
     bool diagonal;
     bool zerosOnDiagonal;
+    bool diagonallyDominant;
+    int *columnsPermutation = nullptr;
     void checkZerosOnDiagonal();
-    void swapLines(int rowZero, int columnZero);
+    void checkDiagonallyDominance();
+    void swapLinesZero(int rowZero, int columnZero);
+    void swapLines(int rowFirst, int rowSecond);
+    void swapColumns(int columnFirst, int columnSecond);
+    int maxColumnElementRowIndex(int columnIndex, int rowIndexSince);
+    int maxRowElementColumnIndex(int rowIndex, int columnIndexSince);
+    void makeNullColumn(int diagonalIndex);
 public:
     Matrix();
     Matrix(float ** array, const int &sizeRow, const int &sizeColumn);
@@ -32,10 +40,14 @@ public:
     bool hasZerosOnDiagonal();
     void multiplyOnVector(const Vector &vector, const Vector &newVector);
     void multiplyOnMatrix(const Matrix &matrix, const Matrix &newMatrix);
-    void makeDiagonal();
+    void makeTriangular();
+    void makeTriangularSelectionColumn();
+    void makeTriangularSelectionRow();
     void printSelf();
     void removeEmptyRows();
+    bool isDiagonallyDominant();
     float at(int row, int column);
+    int getIndexPerm(int i);
 };
 
 
