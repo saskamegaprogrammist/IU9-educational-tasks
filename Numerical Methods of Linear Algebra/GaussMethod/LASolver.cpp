@@ -30,7 +30,6 @@ int LASolver::GaussMethod(Matrix system, Vector & answer) {
 
 int LASolver::GaussMainSelectionColumn(Matrix system, Vector &answer) {
     system.makeTriangularSelectionColumn();
-    system.printSelf();
     if (system.hasZerosOnDiagonal() || system.getMatrixRows() >= system.getMatrixColumns()) {
         system.removeEmptyRows();
     }
@@ -43,6 +42,31 @@ int LASolver::GaussMainSelectionColumn(Matrix system, Vector &answer) {
         return -1;
     }
     this->GaussBackwards(system, answer);
+    return 0;
+}
+
+int LASolver::GaussMainSelectionFull(Matrix system, Vector &answer) {
+    system.makeTriangularSelectionFull();
+    if (system.hasZerosOnDiagonal() || system.getMatrixRows() >= system.getMatrixColumns()) {
+        system.removeEmptyRows();
+    }
+    if (system.hasZerosOnDiagonal() || system.getMatrixRows() < system.getMatrixColumns() - 1) {
+        cout << "system has no solution" << endl;
+        return -1;
+    }
+    if (system.getMatrixRows() >= system.getMatrixColumns()) {
+        cout << "system has more than one solution" << endl;
+        return -1;
+    }
+    this->GaussBackwards(system, answer);
+    float * answerCopy = new float [answer.getVectorSize()];
+    for (int i = 0; i < answer.getVectorSize(); i++) {
+        answerCopy[i] = answer.at(i);
+    }
+    for (int i = 0; i < answer.getVectorSize(); i++) {
+        answer.set(system.getIndexPerm(i), answerCopy[i]);
+    }
+    delete  [] answerCopy;
     return 0;
 }
 

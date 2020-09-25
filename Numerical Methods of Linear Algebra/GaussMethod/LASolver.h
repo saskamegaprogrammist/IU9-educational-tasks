@@ -18,6 +18,7 @@ public:
     int GaussMethod(Matrix system, Vector & answer);
     int GaussMainSelectionColumn(Matrix system, Vector & answer);
     int GaussMainSelectionRow(Matrix system, Vector & answer);
+    int GaussMainSelectionFull(Matrix system, Vector & answer);
 };
 
 #endif //GAUSSMETHOD_LASOLVER_H

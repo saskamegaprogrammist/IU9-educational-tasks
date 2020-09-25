@@ -326,3 +326,25 @@ int Matrix::getIndexPerm(int i) {
     return this->columnsPermutation[i];
 }
 
+void Matrix::makeTriangularSelectionFull() {
+    this->columnsPermutation = new int[this->sizeColumn];
+    for (int i = 0; i < this->sizeColumn-1; i++) {
+        columnsPermutation[i] = i;
+    }
+    for (int i = 0; i < this->sizeColumn-1; i++) {
+        int indexMax = this->maxColumnElementRowIndex(i, i);
+        if (i != indexMax) this->swapLines(i, indexMax);
+        this->makeNullColumn(i);
+
+        indexMax = this->maxRowElementColumnIndex(i, i);
+        if (i != indexMax) this->swapColumns(i, indexMax);
+
+        int indOld = this->columnsPermutation[i];
+        this->columnsPermutation[i]=this->columnsPermutation[indexMax];
+        this->columnsPermutation[indexMax] = indOld;
+
+        this->makeNullColumn(i);
+    }
+    this->diagonal = true;
+}
+

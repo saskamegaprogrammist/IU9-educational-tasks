@@ -41,6 +41,7 @@ public:
     void multiplyOnVector(const Vector &vector, const Vector &newVector);
     void multiplyOnMatrix(const Matrix &matrix, const Matrix &newMatrix);
     void makeTriangular();
+    void makeTriangularSelectionFull();
     void makeTriangularSelectionColumn();
     void makeTriangularSelectionRow();
     void printSelf();

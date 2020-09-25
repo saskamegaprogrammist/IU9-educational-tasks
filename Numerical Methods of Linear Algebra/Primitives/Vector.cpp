@@ -138,4 +138,14 @@ float Vector::getElementsSum(int fromIndex) {
     return sum;
 }
 
+float Vector::calculateNorm(int p) {
+    float sum = 0;
+    float floatP = float(p);
+    for (int i = 0; i < this->vectorSize; i++) {
+        sum += pow(abs(this->vectorArray[i]), floatP);
+    }
+    float inv = float(1)/floatP;
+    return pow(sum, inv);
+}
+
 

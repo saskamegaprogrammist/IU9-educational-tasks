@@ -5,6 +5,7 @@
 #ifndef GAUSSMETHOD_VECTOR_H
 #define GAUSSMETHOD_VECTOR_H
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 class Vector {
@@ -27,6 +28,7 @@ public:
     void multiplyOnVector(const Vector &vectorOther, int fromIndex);
     float multiplyScalar(const Vector &vectorOther);
     float getElementsSum(int fromIndex);
+    float calculateNorm(int p);
     void printSelf();
 
 };

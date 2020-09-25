@@ -351,6 +351,7 @@ int gaussFullRandomTest() {
 
     float ** matrixSystem;
     float ** matrixMain;
+    float * vectorMain;
 
     Eigen::MatrixXf EigenA(SIZE, SIZE);
     Eigen::VectorXf Eigenb(SIZE);
@@ -365,6 +366,8 @@ int gaussFullRandomTest() {
         matrixMain[i] = new float[sizeFirstColumn];
     }
 
+    vectorMain = new float[sizeFirstRow];
+
     srand(time(NULL));
 
 
@@ -376,6 +379,7 @@ int gaussFullRandomTest() {
                 matrixMain[i][j] = matrixSystem[i][j];
                 EigenA(i, j) = matrixSystem[i][j];
             } else {
+                vectorMain[i] = matrixSystem[i][j];
                 Eigenb(i) = matrixSystem[i][j];
             }
         }
@@ -383,39 +387,69 @@ int gaussFullRandomTest() {
 
 
     Matrix systemMatrix = Matrix(matrixSystem, sizeFirstRow, sizeFirstColumn);
+    Matrix systemMatrixCopy = Matrix(systemMatrix);
     Matrix mainMatrix = Matrix(matrixMain, sizeFirstRow, sizeFirstColumn-1);
+    Vector mainVector = Vector(vectorMain, sizeFirstRow);
 
     Vector answerVector(sizeFirstColumn-1);
+    Vector answerVectorCopy(sizeFirstColumn-1);
 
     systemMatrix.printSelf();
 
     if (mainMatrix.isDiagonallyDominant()) {
         cout << "diagonally dominant" << endl;
-        int result = solver.GaussMethod(systemMatrix, answerVector);
-        if (result != 0) {
-            return -1;
-        }
     } else {
         cout << "not diagonally dominant" << endl;
-        int result = solver.GaussMainSelectionRow(systemMatrix, answerVector);
-        if (result != 0) {
-            return -1;
-        }
     }
 
-    cout << "The solution is: " << endl;
+    int result = solver.GaussMethod(systemMatrix, answerVector);
+    if (result != 0) {
+        return -1;
+    }
+    cout << "The simple gauss solution is: " << endl;
     answerVector.printSelf();
+
+    result = solver.GaussMainSelectionFull(systemMatrixCopy, answerVectorCopy);
+    if (result != 0) {
+        return -1;
+    }
+
+    cout << "The hard gauss solution is: " << endl;
+    answerVectorCopy.printSelf();
+
+    Eigen::VectorXf x = EigenA.completeOrthogonalDecomposition().solve(Eigenb);
+    cout << "The eigen solution is:\n" << x << endl;
 
 
     Vector controlVector = Vector(sizeFirstRow);
     mainMatrix.multiplyOnVector(answerVector, controlVector);
 
-    cout << "Checking the solution: " << endl;
+    cout << "Checking the simple gauss solution: " << endl;
     controlVector.printSelf();
 
+    Vector controlVectorCopy = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVectorCopy, controlVectorCopy);
 
-    Eigen::VectorXf x = EigenA.completeOrthogonalDecomposition().solve(Eigenb);
-    cout << "The eigen solution is:\n" << x << endl;
+    cout << "Checking the hard gauss solution: " << endl;
+    controlVectorCopy.printSelf();
+
+    Vector mainVectorCopy = Vector(mainVector);
+    mainVector.substract(controlVector);
+
+    cout << "Gauss solution inaccuracy: " << endl;
+    mainVector.printSelf();
+
+    mainVectorCopy.substract(controlVectorCopy);
+
+    cout << "Gauss hard solution inaccuracy: " << endl;
+    mainVectorCopy.printSelf();
+
+    cout << "Gauss solution inaccuracy norm: " << endl;
+    cout << mainVector.calculateNorm(2) << endl;
+
+    cout << "Gauss hard solution inaccuracy norm: " << endl;
+    cout << mainVectorCopy.calculateNorm(2) << endl;
+
 
     for (int i = 0; i < sizeFirstRow; i++) {
         delete [] matrixSystem[i];
@@ -428,6 +462,8 @@ int gaussFullRandomTest() {
     }
 
     delete [] matrixMain;
+
+    delete [] vectorMain;
 
     return 0;
 }
