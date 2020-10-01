@@ -373,8 +373,8 @@ int gaussFullRandomTest() {
 
     for (int i = 0; i < sizeFirstRow; i++) {
         for (int j = 0; j < sizeFirstColumn; j++) {
-            float r = ((float) rand()) / (float) RAND_MAX;
-            matrixSystem[i][j] = r * MAX_MATRIX_VALUE;
+                float r = ((float) rand()) / (float) RAND_MAX;
+                matrixSystem[i][j] = r * MAX_MATRIX_VALUE;
             if (j != sizeFirstColumn -1) {
                 matrixMain[i][j] = matrixSystem[i][j];
                 EigenA(i, j) = matrixSystem[i][j];
@@ -468,9 +468,157 @@ int gaussFullRandomTest() {
     return 0;
 }
 
+int perturbationTest() {
+    LASolver solver = LASolver();
+    const int SIZE = 2;
+    int sizeFirstRow = SIZE;
+    int sizeFirstColumn = SIZE+1;
+
+    float ** matrixSystem;
+    float ** matrixMain;
+    float * vectorMain;
+
+    float ** matrixSystemPerturbation;
+    float ** matrixMainPerturbation;
+    float * vectorMainPerturbation;
+
+    matrixSystem = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixSystem[i] = new float[sizeFirstColumn];
+    }
+
+    matrixMain = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMain[i] = new float[sizeFirstColumn];
+    }
+
+    vectorMain = new float[sizeFirstRow];
+
+    matrixSystemPerturbation = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixSystemPerturbation[i] = new float[sizeFirstColumn];
+    }
+
+    matrixMainPerturbation = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMainPerturbation[i] = new float[sizeFirstColumn];
+    }
+
+    vectorMainPerturbation = new float[sizeFirstRow];
+
+    srand(time(NULL));
+
+    matrixSystemPerturbation[0][0] = 1;
+    matrixSystemPerturbation[1][0] = 4;
+    matrixSystemPerturbation[0][1] = 2;
+    matrixSystemPerturbation[1][1] = 1;
+
+    matrixSystemPerturbation[0][2] = 7;
+    matrixSystemPerturbation[1][2] = 2;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        for (int j = 0; j < sizeFirstColumn; j++) {
+            float r = ((float) rand()) / (float) RAND_MAX;
+            matrixSystem[i][j] = r * MAX_MATRIX_VALUE;
+            matrixSystemPerturbation[i][j] += matrixSystem[i][j];
+            if (j != sizeFirstColumn -1) {
+                matrixMain[i][j] = matrixSystem[i][j];
+                matrixMainPerturbation[i][j] = matrixSystemPerturbation[i][j];
+            } else {
+                vectorMain[i] = matrixSystem[i][j];
+                vectorMainPerturbation[i] = matrixSystemPerturbation[i][j];
+            }
+        }
+    }
+
+
+    Matrix systemMatrix = Matrix(matrixSystem, sizeFirstRow, sizeFirstColumn);
+    Matrix mainMatrix = Matrix(matrixMain, sizeFirstRow, sizeFirstColumn-1);
+    Vector mainVector = Vector(vectorMain, sizeFirstRow);
+
+    Vector answerVector(sizeFirstColumn-1);
+
+    systemMatrix.printSelf();
+
+
+    int result = solver.GaussMethod(systemMatrix, answerVector);
+    if (result != 0) {
+        return -1;
+    }
+    cout << "The simple gauss solution is: " << endl;
+    answerVector.printSelf();
+
+    Matrix systemMatrixPertrubation = Matrix(matrixSystemPerturbation, sizeFirstRow, sizeFirstColumn);
+    Matrix mainMatrixPertrubation = Matrix(matrixMainPerturbation, sizeFirstRow, sizeFirstColumn-1);
+    Vector mainVectorPertrubation = Vector(vectorMainPerturbation, sizeFirstRow);
+
+    Vector answerVectorPertrubation(sizeFirstColumn-1);
+
+    systemMatrixPertrubation.printSelf();
+
+
+    result = solver.GaussMethod(systemMatrixPertrubation, answerVectorPertrubation);
+    if (result != 0) {
+        return -1;
+    }
+    cout << "The simple gauss solution for pertrubation is: " << endl;
+    answerVectorPertrubation.printSelf();
+
+    Vector deltaX(answerVectorPertrubation);
+    deltaX.substract(answerVector);
+
+    cout << "The deltaX is: " << endl;
+    deltaX.printSelf();
+
+    float relativeError = deltaX.calculateEuclideanNorm() / answerVector.calculateEuclideanNorm();
+
+    float condNumber = mainMatrix.getConditionNumber2by2();
+
+    float relation = mainVectorPertrubation.calculateEuclideanNorm() / mainVector.calculateEuclideanNorm() +
+            mainMatrixPertrubation.calculateEuclideanNorm() / mainMatrix.calculateEuclideanNorm();
+
+    float upperPoint = relation * condNumber;
+
+    cout << "relative error is: " << relativeError << endl;
+    cout << "cond number is: " << condNumber << endl;
+    cout << "relation number is: " << relation << endl;
+    cout << "upper point is: " << upperPoint << endl;
+
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixSystem[i];
+    }
+
+    delete [] matrixSystem;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMain[i];
+    }
+
+    delete [] matrixMain;
+
+    delete [] vectorMain;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixSystemPerturbation[i];
+    }
+
+    delete [] matrixSystemPerturbation;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMainPerturbation[i];
+    }
+
+    delete [] matrixMainPerturbation;
+
+    delete [] vectorMainPerturbation;
+
+    return 0;
+}
+
 
 int main() {
-    int result = gaussFullRandomTest();
+    int result = perturbationTest();
     if (result != 0) {
         cout << "Unexpected error during test" << endl;
         return -1;

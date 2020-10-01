@@ -348,3 +348,52 @@ void Matrix::makeTriangularSelectionFull() {
     this->diagonal = true;
 }
 
+float Matrix::calculateEuclideanNorm() {
+    float sum = 0;
+    float float2 = float(2);
+    for (int i = 0; i < this->sizeRow; i++) {
+        for (int j=0; j < this->sizeColumn; j++) {
+            sum += pow(abs(this->matrixArray[i][j]), float2);
+        }
+    }
+    float inv = float(1)/float2;
+    return pow(sum, inv);
+}
+
+void Matrix::getInverted2by2(const Matrix &newMatrix) {
+    if (this->sizeColumn != 2 && this->sizeRow != 2) {
+        cout << "This method is for matrices 2 by 2" << endl;
+        return;
+    }
+    float determinant = this->getDeterminant2by2();
+    newMatrix.matrixArray[0][0] = this->matrixArray[1][1] / determinant;
+    newMatrix.matrixArray[1][1] = this->matrixArray[0][0] / determinant;
+    newMatrix.matrixArray[0][1] = -this->matrixArray[1][0] / determinant;
+    newMatrix.matrixArray[1][0] = -this->matrixArray[0][1] / determinant;
+}
+
+float Matrix::getDeterminant2by2() {
+    if (this->sizeColumn != 2 && this->sizeRow != 2) {
+        cout << "This method is for matrices 2 by 2" << endl;
+        return 0;
+    }
+    return abs(this->matrixArray[0][0]*this->matrixArray[1][1] - this->matrixArray[0][1]* this->matrixArray[1][0]);
+}
+
+float Matrix::getConditionNumber2by2() {
+    float ** matrixInv;
+    matrixInv = new float*[2];
+    for (int i = 0; i < 2; i++) {
+        matrixInv[i] = new float[2];
+    }
+    Matrix AInverted = Matrix(matrixInv, 2, 2);
+    this->getInverted2by2(AInverted);
+    float normA = this->calculateEuclideanNorm();
+    float normAInverted =AInverted.calculateEuclideanNorm();
+    for (int i = 0; i < 2; i++) {
+        delete [] matrixInv[i];
+    }
+
+    delete [] matrixInv;
+    return normA*normAInverted;
+}

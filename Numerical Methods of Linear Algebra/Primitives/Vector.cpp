@@ -148,4 +148,10 @@ float Vector::calculateNorm(int p) {
     return pow(sum, inv);
 }
 
+float Vector::calculateEuclideanNorm() {
+    return this->calculateNorm(2);
+}
+
+
+
 

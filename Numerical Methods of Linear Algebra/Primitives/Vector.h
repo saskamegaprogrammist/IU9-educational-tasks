@@ -29,6 +29,7 @@ public:
     float multiplyScalar(const Vector &vectorOther);
     float getElementsSum(int fromIndex);
     float calculateNorm(int p);
+    float calculateEuclideanNorm();
     void printSelf();
 
 };

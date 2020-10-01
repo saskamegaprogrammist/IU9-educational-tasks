@@ -49,6 +49,10 @@ public:
     bool isDiagonallyDominant();
     float at(int row, int column);
     int getIndexPerm(int i);
+    float calculateEuclideanNorm();
+    void getInverted2by2(const Matrix &newMatrix);
+    float getDeterminant2by2();
+    float getConditionNumber2by2();
 };
 
 
