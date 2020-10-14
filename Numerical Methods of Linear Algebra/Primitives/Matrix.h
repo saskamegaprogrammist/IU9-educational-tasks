@@ -33,8 +33,8 @@ public:
     Matrix(const Matrix &Matrix);
     ~Matrix();
     bool isEmpty();
-    int getMatrixColumns();
-    int getMatrixRows();
+    int getMatrixColumns() const;
+    int getMatrixRows() const;
     float * getLine(int i);
     bool isDiagonal();
     bool hasZerosOnDiagonal();
@@ -47,9 +47,10 @@ public:
     void printSelf();
     void removeEmptyRows();
     bool isDiagonallyDominant();
-    float at(int row, int column);
+    float at(int row, int column) const;
     int getIndexPerm(int i);
     float calculateEuclideanNorm();
+    float calculateEvenNorm();
     void getInverted2by2(const Matrix &newMatrix);
     float getDeterminant2by2();
     float getConditionNumber2by2();

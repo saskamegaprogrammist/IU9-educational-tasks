@@ -77,11 +77,11 @@ bool Matrix::isEmpty() {
     }
 }
 
-int Matrix::getMatrixColumns() {
+int Matrix::getMatrixColumns() const {
     return this->sizeColumn;
 }
 
-int Matrix::getMatrixRows() {
+int Matrix::getMatrixRows() const {
     return this->sizeRow;
 }
 
@@ -92,7 +92,6 @@ void Matrix::multiplyOnVector(const Vector &vector, const Vector &newVector) {
     }
     for (int i=0; i < this->sizeRow; i++) {
         for (int j=0; j < this->sizeColumn; j++) {
-            float nV = newVector.at(i) + this->matrixArray[i][j]*vector.at(j);
             newVector.set(i, newVector.at(i) + this->matrixArray[i][j]*vector.at(j));
         }
     }
@@ -208,7 +207,7 @@ float * Matrix::getLine(int i) {
     return this->matrixArray[i];
 }
 
-float Matrix::at(int row, int column) {
+float Matrix::at(int row, int column) const {
     return this->matrixArray[row][column];
 }
 
@@ -249,7 +248,9 @@ void Matrix::checkDiagonallyDominance() {
     for (int i = 0; i < this->sizeRow; i++) {
         float sum = 0;
         for (int j = 0; j < this->sizeColumn; j++) {
-            sum += abs(this->matrixArray[i][j]);
+            if (i != j) {
+                sum += abs(this->matrixArray[i][j]);
+            }
         }
         if (this->matrixArray[i][i] <= sum) return;
     }
@@ -358,6 +359,20 @@ float Matrix::calculateEuclideanNorm() {
     }
     float inv = float(1)/float2;
     return pow(sum, inv);
+}
+
+float Matrix::calculateEvenNorm() {
+    float max = 0;
+    for (int i = 0; i < this->sizeRow; i++) {
+        float sum = 0;
+        for (int j=0; j < this->sizeColumn; j++) {
+            sum += abs(this->matrixArray[i][j]);
+        }
+        if (sum > max) {
+            max = sum;
+        };
+    }
+    return max;
 }
 
 void Matrix::getInverted2by2(const Matrix &newMatrix) {

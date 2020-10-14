@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../Primitives/Matrix.h"
 #include "../GaussMethod/LASolver.h"
+#include "../IterationMethods/JakobiMethod.h"
 #include <Eigen/Dense>
 #include <random>
 
@@ -616,9 +617,243 @@ int perturbationTest() {
     return 0;
 }
 
+int perturbationTestEven() {
+    JakobiMethod jakobiMethod = JakobiMethod();
+    const int SIZE = 2;
+    int sizeFirstRow = SIZE;
+
+    float ** matrixMain;
+    float * vectorMain;
+
+    float ** matrixMainPerturbation;
+    float * vectorMainPerturbation;
+
+    matrixMain = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMain[i] = new float[sizeFirstRow];
+    }
+
+    vectorMain = new float[sizeFirstRow];
+
+    matrixMainPerturbation = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMainPerturbation[i] = new float[sizeFirstRow];
+    }
+
+    vectorMainPerturbation = new float[sizeFirstRow];
+
+    srand(time(NULL));
+
+    matrixMainPerturbation[0][0] = 1;
+    matrixMainPerturbation[1][0] = 4;
+    matrixMainPerturbation[0][1] = 2;
+    matrixMainPerturbation[1][1] = 1;
+
+    vectorMainPerturbation[0] = 7;
+    vectorMainPerturbation[1] = 2;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        for (int j = 0; j < sizeFirstRow + 1; j++) {
+            float r = ((float) rand()) / (float) RAND_MAX;
+            float randomValue = r * MAX_MATRIX_VALUE;
+            if (i==j) {
+                randomValue*=100;
+            }
+            if (j != sizeFirstRow) {
+                matrixMain[i][j] = randomValue;
+                matrixMainPerturbation[i][j] += randomValue;
+            } else {
+                vectorMain[i] = randomValue;
+                vectorMainPerturbation[i] += randomValue;
+            }
+        }
+    }
+
+
+    Matrix mainMatrix = Matrix(matrixMain, sizeFirstRow, sizeFirstRow);
+    Vector mainVector = Vector(vectorMain, sizeFirstRow);
+
+    Vector answerVector(sizeFirstRow);
+
+    mainMatrix.printSelf();
+    cout << endl;
+    mainVector.printSelf();
+
+
+    jakobiMethod.setPrecision(0.000001);
+
+    bool converges = jakobiMethod.Converges(mainMatrix);
+    if (converges) {
+        int result = jakobiMethod.Solve(mainMatrix, mainVector, answerVector);
+        if (result != 0) {
+            return -1;
+        }
+    } else {
+        return 0;
+    }
+    cout << "The simple jakobi solution is: " << endl;
+    answerVector.printSelf();
+
+    Matrix mainMatrixPertrubation = Matrix(matrixMainPerturbation, sizeFirstRow, sizeFirstRow);
+    Vector mainVectorPertrubation = Vector(vectorMainPerturbation, sizeFirstRow);
+
+    Vector answerVectorPertrubation(sizeFirstRow);
+
+    mainMatrixPertrubation.printSelf();
+    cout << endl;
+    mainVectorPertrubation.printSelf();
+
+    converges = jakobiMethod.Converges(mainMatrixPertrubation);
+    if (converges) {
+        int result = jakobiMethod.Solve(mainMatrixPertrubation, mainVectorPertrubation, answerVectorPertrubation);
+        if (result != 0) {
+            return -1;
+        }
+    } else {
+        return 0;
+    }
+
+    cout << "The simple jakobi solution for pertrubation is: " << endl;
+    answerVectorPertrubation.printSelf();
+
+    Vector deltaX(answerVectorPertrubation);
+    deltaX.substract(answerVector);
+
+    cout << "The deltaX is: " << endl;
+    deltaX.printSelf();
+
+    float relativeError = deltaX.calculateEvenNorm() / answerVector.calculateEvenNorm();
+
+    float condNumber = mainMatrix.getConditionNumber2by2();
+
+    float relation = mainVectorPertrubation.calculateEvenNorm() / mainVector.calculateEvenNorm() +
+                     mainMatrixPertrubation.calculateEvenNorm() / mainMatrix.calculateEvenNorm();
+
+    float upperPoint = relation * condNumber;
+
+    cout << "relative error is: " << relativeError << endl;
+    cout << "cond number is: " << condNumber << endl;
+    cout << "relation number is: " << relation << endl;
+    cout << "upper point is: " << upperPoint << endl;
+
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMain[i];
+    }
+
+    delete [] matrixMain;
+
+    delete [] vectorMain;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMainPerturbation[i];
+    }
+
+    delete [] matrixMainPerturbation;
+
+    delete [] vectorMainPerturbation;
+
+    return 0;
+}
+
+
+int jakobiTest() {
+    JakobiMethod jakobiMethod = JakobiMethod();
+    const int SIZE = 10;
+    int sizeFirstRow = SIZE;
+
+    float ** matrixMain;
+    float * vectorMain;
+
+    Eigen::MatrixXf EigenA(SIZE, SIZE);
+    Eigen::VectorXf Eigenb(SIZE);
+
+    matrixMain = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMain[i] = new float[sizeFirstRow];
+    }
+
+    vectorMain = new float[sizeFirstRow];
+
+    srand(time(NULL));
+
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        for (int j = 0; j < sizeFirstRow + 1; j++) {
+            float r = ((float) rand()) / (float) RAND_MAX;
+            float randomValue = r * MAX_MATRIX_VALUE;
+            if (i==j) {
+                randomValue *= 100;
+            }
+            if (j != sizeFirstRow) {
+                matrixMain[i][j] = randomValue;
+                EigenA(i, j) = randomValue;
+            } else {
+                vectorMain[i] = randomValue;
+                Eigenb(i) = randomValue;
+            }
+        }
+    }
+
+
+    Matrix mainMatrix = Matrix(matrixMain, sizeFirstRow, sizeFirstRow);
+    Vector mainVector = Vector(vectorMain, sizeFirstRow);
+
+    Vector answerVector(sizeFirstRow);
+    Vector answerVectorCopy(sizeFirstRow);
+
+    mainMatrix.printSelf();
+    cout << endl;
+    mainVector.printSelf();
+
+    jakobiMethod.setPrecision(0.000001);
+
+    bool converges = jakobiMethod.Converges(mainMatrix);
+    if (converges) {
+        int result = jakobiMethod.Solve(mainMatrix, mainVector, answerVector);
+        if (result != 0) {
+            return -1;
+        }
+    } else {
+        return 0;
+    }
+
+    cout << "The jakobi solution is: " << endl;
+    answerVector.printSelf();
+
+    Eigen::VectorXf x = EigenA.completeOrthogonalDecomposition().solve(Eigenb);
+    cout << "The eigen solution is:\n" << x << endl;
+
+
+    Vector controlVector = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVector, controlVector);
+
+    cout << "Checking jakobi solution: " << endl;
+    controlVector.printSelf();
+
+    Vector mainVectorCopy = Vector(mainVector);
+    mainVector.substract(controlVector);
+
+    cout << "Jakobi solution inaccuracy: " << endl;
+    mainVector.printSelf();
+
+    cout << "Jakobi solution inaccuracy norm: " << endl;
+    cout << mainVector.calculateEvenNorm() << endl;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMain[i];
+    }
+
+    delete [] matrixMain;
+
+    delete [] vectorMain;
+
+    return 0;
+}
 
 int main() {
-    int result = perturbationTest();
+    cout.precision(8);
+    int result = perturbationTestEven();
     if (result != 0) {
         cout << "Unexpected error during test" << endl;
         return -1;

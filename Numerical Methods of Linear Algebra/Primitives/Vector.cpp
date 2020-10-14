@@ -152,6 +152,20 @@ float Vector::calculateEuclideanNorm() {
     return this->calculateNorm(2);
 }
 
+float Vector::calculateEvenNorm() {
+    if (this->vectorSize <= 0) {
+        cout << "Vector sizes is zero" << endl;
+        return 0;
+    }
+    float max = (abs(this->vectorArray[0]));
+    for (int i = 1; i < this->vectorSize; i++) {
+        if (abs(this->vectorArray[i]) > max) {
+            max = abs(this->vectorArray[i]);
+        }
+    }
+    return max;
+}
+
 
 
 

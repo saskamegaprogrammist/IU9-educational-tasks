@@ -12,7 +12,7 @@ LASolver::LASolver() {
 
 int LASolver::GaussMethod(Matrix system, Vector & answer) {
     system.makeTriangular();
-    system.printSelf();
+//    system.printSelf();
     if (system.hasZerosOnDiagonal() || system.getMatrixRows() >= system.getMatrixColumns()) {
         system.removeEmptyRows();
     }
