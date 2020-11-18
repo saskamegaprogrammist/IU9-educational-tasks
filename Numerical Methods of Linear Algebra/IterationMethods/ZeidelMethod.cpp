@@ -1,21 +1,21 @@
 //
-// Created by alexis on 15.10.2020.
+// Created by alexis on 18.11.2020.
 //
 
-#include "JakobiMethod.h"
+#include "ZeidelMethod.h"
 
-JakobiMethod::JakobiMethod() {
+ZeidelMethod::ZeidelMethod() {
 }
 
-JakobiMethod::JakobiMethod(const float &precision) {
+ZeidelMethod::ZeidelMethod(const float &precision) {
     this->precision = precision;
 }
 
-void JakobiMethod::setPrecision(const float &precision) {
+void ZeidelMethod::setPrecision(const float &precision) {
     this->precision = precision;
 }
 
-bool JakobiMethod::checkConvergence(Matrix main) {
+bool ZeidelMethod::checkConvergence(Matrix main) {
     if (!main.isDiagonallyDominant()) {
         cout << "Method doesn't converge" << endl;
         this->converges = false;
@@ -26,11 +26,12 @@ bool JakobiMethod::checkConvergence(Matrix main) {
     return this->converges;
 }
 
-bool JakobiMethod::Converges(const Matrix& main) {
+bool ZeidelMethod::Converges(const Matrix& main) {
     return this->checkConvergence(main);
 }
 
-int JakobiMethod::Solve(const Matrix& mainMatrix, const Vector& mainVector, Vector &answer) {
+
+int ZeidelMethod::Solve(const Matrix& mainMatrix, const Vector& mainVector, Vector &answer) {
     if (!this->converges) {
         cout << "Method doesn't converge" << endl;
         return -1;
@@ -47,10 +48,11 @@ int JakobiMethod::Solve(const Matrix& mainMatrix, const Vector& mainVector, Vect
         this->iterations++;
         for (int i = 0; i < dimension; i++) {
             float numerator = mainVector.at(i);
-            for (int j = 0; j < dimension; j++) {
-                if (i != j) {
-                    numerator -= mainMatrix.at(i, j) * initial.at(j);
-                }
+            for (int j = 0; j < i; j++) {
+                numerator -= mainMatrix.at(i, j) * nextIteration.at(j);
+            }
+            for (int j = i+1; j < dimension; j++) {
+                numerator -= mainMatrix.at(i, j) * initial.at(j);
             }
             nextIteration.set(i, numerator / mainMatrix.at(i, i));
         }
@@ -67,13 +69,13 @@ int JakobiMethod::Solve(const Matrix& mainMatrix, const Vector& mainVector, Vect
     return 0;
 }
 
-bool JakobiMethod::checkStopCondition(Vector iteration, Vector nextIteration) {
+bool ZeidelMethod::checkStopCondition(Vector iteration, Vector nextIteration) {
     Vector difference = Vector(nextIteration);
     difference.substract(iteration);
     return difference.calculateEvenNorm() < this->precision;
 }
 
-int JakobiMethod::setInitial(Matrix mainMatrix, Vector mainVector, Vector &initial) {
+int ZeidelMethod::setInitial(Matrix mainMatrix, Vector mainVector, Vector &initial) {
     if (initial.getVectorSize() != mainMatrix.getMatrixRows()) {
         cout << "Vector size is wrong" << endl;
         return -1;
@@ -88,11 +90,9 @@ int JakobiMethod::setInitial(Matrix mainMatrix, Vector mainVector, Vector &initi
     return 0;
 }
 
-int JakobiMethod::getIterationsNumber() {
+int ZeidelMethod::getIterationsNumber() {
     if (this->iterations == 0) {
         cout << "Method didn't solve anything yet" << endl;
     }
     return this->iterations;
 }
-
-

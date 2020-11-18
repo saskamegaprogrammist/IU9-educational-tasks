@@ -3,6 +3,7 @@
 #include "../Primitives/Matrix.h"
 #include "../GaussMethod/LASolver.h"
 #include "../IterationMethods/JakobiMethod.h"
+#include "../IterationMethods/ZeidelMethod.h"
 #include <Eigen/Dense>
 #include <random>
 
@@ -851,9 +852,340 @@ int jakobiTest() {
     return 0;
 }
 
+int jakobiAndGaussTest() {
+    LASolver solver = LASolver();
+    JakobiMethod jakobiMethod = JakobiMethod();
+
+    const int SIZE = 10;
+    int sizeFirstRow = SIZE;
+    int sizeFirstColumn = SIZE+1;
+
+    float ** matrixSystem;
+    float ** matrixMain;
+    float * vectorMain;
+
+    Eigen::MatrixXf EigenA(SIZE, SIZE);
+    Eigen::VectorXf Eigenb(SIZE);
+
+    matrixSystem = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixSystem[i] = new float[sizeFirstColumn];
+    }
+
+    matrixMain = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMain[i] = new float[sizeFirstColumn];
+    }
+
+    vectorMain = new float[sizeFirstRow];
+
+    srand(time(NULL));
+
+
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        for (int j = 0; j < sizeFirstColumn; j++) {
+            float r = ((float) rand()) / (float) RAND_MAX;
+            matrixSystem[i][j] = r * MAX_MATRIX_VALUE;
+            if (i==j) {
+                matrixSystem[i][j] *= 100;
+            }
+            if (j != sizeFirstColumn -1) {
+                matrixMain[i][j] = matrixSystem[i][j];
+                EigenA(i, j) = matrixSystem[i][j];
+            } else {
+                vectorMain[i] = matrixSystem[i][j];
+                Eigenb(i) = matrixSystem[i][j];
+            }
+        }
+    }
+
+
+    Matrix systemMatrix = Matrix(matrixSystem, sizeFirstRow, sizeFirstColumn);
+    Matrix mainMatrix = Matrix(matrixMain, sizeFirstRow, sizeFirstColumn-1);
+//    Matrix mainMatrixCopy = Matrix(mainMatrix);
+    Vector mainVector = Vector(vectorMain, sizeFirstRow);
+//    Vector mainVectorCopy = Vector(mainVector);
+
+    Vector answerVectorGauss(sizeFirstColumn-1);
+    Vector answerVectorJakobi(sizeFirstColumn-1);
+
+    mainMatrix.printSelf();
+    cout << endl;
+    mainVector.printSelf();
+
+//    systemMatrix.printSelf();
+
+    if (mainMatrix.isDiagonallyDominant()) {
+        cout << "diagonally dominant" << endl;
+    } else {
+        cout << "not diagonally dominant" << endl;
+    }
+
+    int result = solver.GaussMethod(systemMatrix, answerVectorGauss);
+    if (result != 0) {
+        return -1;
+    }
+    cout << "The simple gauss solution is: " << endl;
+    answerVectorGauss.printSelf();
+
+
+
+    jakobiMethod.setPrecision(0.000001);
+
+    bool converges = jakobiMethod.Converges(mainMatrix);
+    if (converges) {
+        result = jakobiMethod.Solve(mainMatrix, mainVector, answerVectorJakobi);
+        if (result != 0) {
+            return -1;
+        }
+    } else {
+        return 0;
+    }
+
+    cout << "The jakobi solution is: " << endl;
+    answerVectorJakobi.printSelf();
+
+    Eigen::VectorXf x = EigenA.completeOrthogonalDecomposition().solve(Eigenb);
+    cout << "The eigen solution is:\n" << x << endl;
+
+
+    Vector controlVectorJakobi = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVectorJakobi, controlVectorJakobi);
+
+    cout << "Checking jakobi solution: " << endl;
+    controlVectorJakobi.printSelf();
+
+    Vector mainVectorCopy = Vector(mainVector);
+    mainVectorCopy.substract(controlVectorJakobi);
+
+    cout << "Jakobi solution inaccuracy: " << endl;
+    mainVectorCopy.printSelf();
+
+    cout << "Jakobi solution inaccuracy norm: " << endl;
+    cout << mainVectorCopy.calculateEvenNorm() << endl;
+
+
+    Vector controlVectorGauss = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVectorGauss, controlVectorGauss);
+
+    cout << "Checking the simple gauss solution: " << endl;
+    controlVectorGauss.printSelf();
+
+    Vector mainVectorCopyGauss = Vector(mainVector);
+    mainVectorCopyGauss.substract(controlVectorGauss);
+
+    cout << "Gauss solution inaccuracy: " << endl;
+    mainVectorCopyGauss.printSelf();
+
+
+    cout << "Gauss solution inaccuracy norm: " << endl;
+    cout << mainVectorCopyGauss.calculateNorm(2) << endl;
+
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixSystem[i];
+    }
+
+    delete [] matrixSystem;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMain[i];
+    }
+
+    delete [] matrixMain;
+
+    delete [] vectorMain;
+
+    return 0;
+}
+
+int zeidelAndJakobiTest() {
+    LASolver solver = LASolver();
+    JakobiMethod jakobiMethod = JakobiMethod();
+    ZeidelMethod zeidelMethod = ZeidelMethod();
+
+    const int SIZE = 10;
+    int sizeFirstRow = SIZE;
+    int sizeFirstColumn = SIZE+1;
+
+    float ** matrixSystem;
+    float ** matrixMain;
+    float * vectorMain;
+
+    Eigen::MatrixXf EigenA(SIZE, SIZE);
+    Eigen::VectorXf Eigenb(SIZE);
+
+    matrixSystem = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixSystem[i] = new float[sizeFirstColumn];
+    }
+
+    matrixMain = new float*[sizeFirstRow];
+    for (int i = 0; i < sizeFirstRow; i++) {
+        matrixMain[i] = new float[sizeFirstColumn];
+    }
+
+    vectorMain = new float[sizeFirstRow];
+
+    srand(time(NULL));
+
+
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        for (int j = 0; j < sizeFirstColumn; j++) {
+            float r = ((float) rand()) / (float) RAND_MAX;
+            matrixSystem[i][j] = r * MAX_MATRIX_VALUE;
+            if (i==j) {
+                matrixSystem[i][j] *= 100;
+            }
+            if (j != sizeFirstColumn -1) {
+                matrixMain[i][j] = matrixSystem[i][j];
+                EigenA(i, j) = matrixSystem[i][j];
+            } else {
+                vectorMain[i] = matrixSystem[i][j];
+                Eigenb(i) = matrixSystem[i][j];
+            }
+        }
+    }
+
+
+    Matrix systemMatrix = Matrix(matrixSystem, sizeFirstRow, sizeFirstColumn);
+    Matrix mainMatrix = Matrix(matrixMain, sizeFirstRow, sizeFirstColumn-1);
+    Vector mainVector = Vector(vectorMain, sizeFirstRow);
+
+    Vector answerVectorGauss(sizeFirstColumn-1);
+    Vector answerVectorJakobi(sizeFirstColumn-1);
+    Vector answerVectorZeidel(sizeFirstColumn-1);
+
+    mainMatrix.printSelf();
+    cout << endl;
+    mainVector.printSelf();
+
+
+    if (mainMatrix.isDiagonallyDominant()) {
+        cout << "diagonally dominant" << endl;
+    } else {
+        cout << "not diagonally dominant" << endl;
+    }
+
+    int result = solver.GaussMethod(systemMatrix, answerVectorGauss);
+    if (result != 0) {
+        return -1;
+    }
+    cout << "The simple gauss solution is: " << endl;
+    answerVectorGauss.printSelf();
+
+
+
+    jakobiMethod.setPrecision(0.000001);
+
+    bool converges = jakobiMethod.Converges(mainMatrix);
+    if (converges) {
+        result = jakobiMethod.Solve(mainMatrix, mainVector, answerVectorJakobi);
+        if (result != 0) {
+            return -1;
+        }
+    } else {
+        return 0;
+    }
+
+    cout << "The jakobi solution is: " << endl;
+    answerVectorJakobi.printSelf();
+
+    cout << "The jakobi iterations number is: " << jakobiMethod.getIterationsNumber() << endl;
+
+    zeidelMethod.setPrecision(0.000001);
+
+    bool convergesZeidel = zeidelMethod.Converges(mainMatrix);
+    if (convergesZeidel) {
+        result = zeidelMethod.Solve(mainMatrix, mainVector, answerVectorZeidel);
+        if (result != 0) {
+            return -1;
+        }
+    } else {
+        return 0;
+    }
+
+    cout << "The zeidel solution is: " << endl;
+    answerVectorZeidel.printSelf();
+
+    cout << "The zeidel iterations number is: " << zeidelMethod.getIterationsNumber() << endl;
+
+
+    Eigen::VectorXf x = EigenA.completeOrthogonalDecomposition().solve(Eigenb);
+    cout << "The eigen solution is:\n" << x << endl;
+
+
+    Vector controlVectorJakobi = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVectorJakobi, controlVectorJakobi);
+
+    cout << "Checking jakobi solution: " << endl;
+    controlVectorJakobi.printSelf();
+
+    Vector mainVectorCopy = Vector(mainVector);
+    mainVectorCopy.substract(controlVectorJakobi);
+
+    cout << "Jakobi solution inaccuracy: " << endl;
+    mainVectorCopy.printSelf();
+
+    cout << "Jakobi solution inaccuracy norm: " << endl;
+    cout << mainVectorCopy.calculateEvenNorm() << endl;
+
+    Vector controlVectorZeidel = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVectorZeidel, controlVectorZeidel);
+
+    cout << "Checking zeidel solution: " << endl;
+    controlVectorZeidel.printSelf();
+
+    Vector mainVectorCopyZeidel = Vector(mainVector);
+    mainVectorCopyZeidel.substract(controlVectorJakobi);
+
+    cout << "Zeidel solution inaccuracy: " << endl;
+    mainVectorCopyZeidel.printSelf();
+
+    cout << "Zeidel solution inaccuracy norm: " << endl;
+    cout << mainVectorCopyZeidel.calculateEvenNorm() << endl;
+
+
+    Vector controlVectorGauss = Vector(sizeFirstRow);
+    mainMatrix.multiplyOnVector(answerVectorGauss, controlVectorGauss);
+
+    cout << "Checking the simple gauss solution: " << endl;
+    controlVectorGauss.printSelf();
+
+    Vector mainVectorCopyGauss = Vector(mainVector);
+    mainVectorCopyGauss.substract(controlVectorGauss);
+
+    cout << "Gauss solution inaccuracy: " << endl;
+    mainVectorCopyGauss.printSelf();
+
+
+    cout << "Gauss solution inaccuracy norm: " << endl;
+    cout << mainVectorCopyGauss.calculateNorm(2) << endl;
+
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixSystem[i];
+    }
+
+    delete [] matrixSystem;
+
+    for (int i = 0; i < sizeFirstRow; i++) {
+        delete [] matrixMain[i];
+    }
+
+    delete [] matrixMain;
+
+    delete [] vectorMain;
+
+    return 0;
+}
+
+
 int main() {
     cout.precision(8);
-    int result = perturbationTestEven();
+    int result = zeidelAndJakobiTest();
     if (result != 0) {
         cout << "Unexpected error during test" << endl;
         return -1;

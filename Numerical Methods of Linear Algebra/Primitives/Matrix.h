@@ -17,9 +17,13 @@ private:
     bool diagonal;
     bool zerosOnDiagonal;
     bool diagonallyDominant;
+    bool positive;
+    bool symmetrical;
     int *columnsPermutation = nullptr;
     void checkZerosOnDiagonal();
     void checkDiagonallyDominance();
+    void checkSymmetrical();
+    void checkPositive();
     void swapLinesZero(int rowZero, int columnZero);
     void swapLines(int rowFirst, int rowSecond);
     void swapColumns(int columnFirst, int columnSecond);
@@ -47,6 +51,8 @@ public:
     void printSelf();
     void removeEmptyRows();
     bool isDiagonallyDominant();
+    bool isSymmetrical();
+    bool isPositive();
     float at(int row, int column) const;
     int getIndexPerm(int i);
     float calculateEuclideanNorm();

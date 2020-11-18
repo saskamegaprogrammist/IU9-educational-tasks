@@ -252,7 +252,7 @@ void Matrix::checkDiagonallyDominance() {
                 sum += abs(this->matrixArray[i][j]);
             }
         }
-        if (this->matrixArray[i][i] <= sum) return;
+        if (abs(this->matrixArray[i][i]) <= sum) return;
     }
     this->diagonallyDominant = true;
 }
@@ -260,6 +260,38 @@ void Matrix::checkDiagonallyDominance() {
 bool Matrix::isDiagonallyDominant() {
     this->checkDiagonallyDominance();
     return this->diagonallyDominant;
+}
+
+void Matrix::checkPositive() {
+    this->positive = false;
+    for (int i = 0; i < this->sizeRow; i++) {
+        for (int j = 0; j < this->sizeColumn; j++) {
+           if (this->matrixArray[i][j] <= 0) return;
+        }
+    }
+    this->positive = true;
+}
+
+void Matrix::checkSymmetrical() {
+    this->symmetrical = false;
+    if (this->sizeRow != this->sizeColumn) return;
+    int dimension = this->sizeRow;
+    for (int i = 0; i < dimension; i++) {
+        for (int j = i; j < dimension; j++) {
+            if (this->matrixArray[i][j] != this->matrixArray[j][i]) return;
+        }
+    }
+    this->symmetrical = true;
+}
+
+bool Matrix::isSymmetrical() {
+    this->checkSymmetrical();
+    return this->symmetrical;
+}
+
+bool Matrix::isPositive()  {
+    this->checkPositive();
+    return this->positive;
 }
 
 int Matrix::maxColumnElementRowIndex(int columnIndex, int rowIndexSince) {
